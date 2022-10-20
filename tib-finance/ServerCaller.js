@@ -811,7 +811,7 @@ class ServerCaller {
     }
 
     static ListServices(merchantId, sessionToken) {
-        var methodName = "/Data/GetService";
+        var methodName = "/Data/ListServices";
 
         var data = { MerchantId: merchantId, SessionToken: sessionToken };
 
