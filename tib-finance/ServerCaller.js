@@ -13,6 +13,7 @@ class ServerCaller {
         };
         return CryptoCaller.performCall(methodName, data)
     }
+
     static createCustomer(customerName, externalId, language = 1, customerDescription, serviceId, sessionToken) {
         CryptoCaller.createSession();
 
@@ -30,13 +31,6 @@ class ServerCaller {
             SessionToken: sessionToken
         };
 
-        var serviceId = "038D7171-BF23-4F3C-9E78-CF6342624FC7";
-        var clientId = "4671a4c9-4367-4934-bb23-a8886cebd028";
-        var userName = "sdkdev";
-        var password = "Test123!";
-
-        // // return CryptoCaller.callTibFinance(methodName, data);
-
         return CryptoCaller.performCall(methodName, data)
     }
 
@@ -46,9 +40,7 @@ class ServerCaller {
             ServiceId: serviceId,
             SessionToken: sessionToken
         };
-
-        // return CryptoCaller.callTibFinance(methodName, data);
-
+      
         return CryptoCaller.performCall(methodName, data)
     }
 
@@ -59,7 +51,7 @@ class ServerCaller {
             SessionToken: sessionToken
         };
 
-        // return CryptoCaller.callTibFinance(methodName, data);
+        
 
         return CryptoCaller.performCall(methodName, data)
     }
@@ -68,7 +60,7 @@ class ServerCaller {
         var methodName = "/Data/GetCustomersByExternalId";
         var data = { ExternalCustomerId: externalCustomerId, SessionToken: sessionToken };
 
-        // return CryptoCaller.callTibFinance(methodName, data);
+        
 
         return CryptoCaller.performCall(methodName, data)
     }
@@ -86,7 +78,7 @@ class ServerCaller {
             SessionToken: sessionToken
         };
 
-        // return CryptoCaller.callTibFinance(methodName, data);
+        
 
         return CryptoCaller.performCall(methodName, data)
     }
@@ -95,7 +87,7 @@ class ServerCaller {
         var methodName = "/Data/DeleteCustomer"
         var data = { CustomerId: customerId, SessionToken: sessionToken };
 
-        // return CryptoCaller.callTibFinance(methodName, data);
+        
 
         return CryptoCaller.performCall(methodName, data)
     }
@@ -107,7 +99,7 @@ class ServerCaller {
             MerchantInfo: merchantInfo,
             SessionnToken: sessionToken
         }
-        // return CryptoCaller.callTibFinance(methodName, data);
+        
 
         return CryptoCaller.performCall(methodName, data)
     }
@@ -126,7 +118,7 @@ class ServerCaller {
             TransferGroupId: transferGroupId,
             OnlyWithErrors: onlyWithErrors
         };
-        // return CryptoCaller.callTibFinance(methodName, data);
+        
 
         return CryptoCaller.performCall(methodName, data)
     }
@@ -146,7 +138,7 @@ class ServerCaller {
             OnlyWithErrors: onlyWithErrors,
             MerchantId: merchantId
         };
-        // return CryptoCaller.callTibFinance(methodName, data);
+        
 
         return CryptoCaller.performCall(methodName, data)
     }
@@ -158,7 +150,7 @@ class ServerCaller {
             BillId: billId,
             MerchantId: merchantId
         }
-        // return CryptoCaller.callTibFinance(methodName, data);
+        
 
         return CryptoCaller.performCall(methodName, data)
     }
@@ -169,7 +161,7 @@ class ServerCaller {
             ServiceId: sessionId,
             SessionToken: sessionToken
         }
-        // return CryptoCaller.callTibFinance(methodName, data);
+        
 
         return CryptoCaller.performCall(methodName, data)
     }
@@ -252,7 +244,7 @@ class ServerCaller {
             CreditCard: creditCardObject
         };
 
-        // return CryptoCaller.callTibFinance(methodName, data);
+        
 
         return CryptoCaller.performCall(methodName, data)
     }
@@ -277,7 +269,7 @@ class ServerCaller {
             Account: accountObject
         };
 
-        // return CryptoCaller.callTibFinance(methodName, data);
+        
 
         return CryptoCaller.performCall(methodName, data)
     }
@@ -303,7 +295,7 @@ class ServerCaller {
             InteracInformation: interacObject
         };
 
-        // return CryptoCaller.callTibFinance(methodName, data);
+        
 
         return CryptoCaller.performCall(methodName, data)
     }
@@ -315,7 +307,7 @@ class ServerCaller {
             PaymentMethodId: paymentMethodId
         };
 
-        // return CryptoCaller.callTibFinance(methodName, data);
+        
 
         return CryptoCaller.performCall(methodName, data)
     }
@@ -327,7 +319,7 @@ class ServerCaller {
             SessionToken: sessionToken
         };
 
-        // return CryptoCaller.callTibFinance(methodName, data);
+        
 
         return CryptoCaller.performCall(methodName, data)
     }
@@ -340,7 +332,7 @@ class ServerCaller {
             SessionToken: sessionToken
         };
 
-        // return CryptoCaller.callTibFinance(methodName, data);
+        
 
         return CryptoCaller.performCall(methodName, data)
     }
@@ -363,7 +355,7 @@ class ServerCaller {
             SessionToken: sessionToken
         };
 
-        // return CryptoCaller.callTibFinance(methodName, data);
+        
 
         return CryptoCaller.performCall(methodName, data)
     }
@@ -386,7 +378,7 @@ class ServerCaller {
             SessionToken: sessionToken
         };
 
-        // return CryptoCaller.callTibFinance(methodName, data);
+        
 
         return CryptoCaller.performCall(methodName, data)
     }
@@ -401,7 +393,7 @@ class ServerCaller {
             SessionToken: sessionToken
         };
 
-        // return CryptoCaller.callTibFinance(methodName, data);
+        
 
         return CryptoCaller.performCall(methodName, data)
     }
@@ -413,7 +405,7 @@ class ServerCaller {
             SessionToken: sessionToken
         };
 
-        // return CryptoCaller.callTibFinance(methodName, data);
+        
 
         return CryptoCaller.performCall(methodName, data)
     }
@@ -425,7 +417,7 @@ class ServerCaller {
             SessionToken: sessionToken
         };
 
-        // return CryptoCaller.callTibFinance(methodName, data);
+        
 
         return CryptoCaller.performCall(methodName, data)
     }
@@ -447,7 +439,7 @@ class ServerCaller {
             SessionToken: sessionToken
         };
 
-        // return CryptoCaller.callTibFinance(methodName, data);
+        
 
         return CryptoCaller.performCall(methodName, data)
     }
@@ -465,7 +457,7 @@ class ServerCaller {
             SessionToken: sessionToken
         };
 
-        // return CryptoCaller.callTibFinance(methodName, data);
+        
 
         return CryptoCaller.performCall(methodName, data)
     }
@@ -483,7 +475,7 @@ class ServerCaller {
             SessionToken: sessionToken
         };
 
-        // return CryptoCaller.callTibFinance(methodName, data);
+        
 
         return CryptoCaller.performCall(methodName, data)
     }
@@ -496,7 +488,7 @@ class ServerCaller {
             SessionToken: sessionToken
         };
 
-        // return CryptoCaller.callTibFinance(methodName, data);
+        
 
         return CryptoCaller.performCall(methodName, data)
     }
@@ -516,7 +508,7 @@ class ServerCaller {
             SessionToken: sessionToken
         };
 
-        // return CryptoCaller.callTibFinance(methodName, data);
+        
 
         return CryptoCaller.performCall(methodName, data)
     }
@@ -528,7 +520,7 @@ class ServerCaller {
             SessionToken: sessionToken
         };
 
-        // return CryptoCaller.callTibFinance(methodName, data);
+        
 
         return CryptoCaller.performCall(methodName, data)
     }
@@ -537,7 +529,7 @@ class ServerCaller {
         var methodName = "/Data/RevertTransfer"
         var data = { TransferId: transferId, SessionToken: sessionToken };
 
-        // return CryptoCaller.callTibFinance(methodName, data);
+        
 
         return CryptoCaller.performCall(methodName, data)
     }
@@ -546,7 +538,7 @@ class ServerCaller {
         var methodName = "/Data/GetRecuringTransfers"
         var data = { ServiceId: serviceId, SessionToken: sessionToken };
 
-        // return CryptoCaller.callTibFinance(methodName, data);
+        
 
         return CryptoCaller.performCall(methodName, data)
     }
@@ -555,7 +547,7 @@ class ServerCaller {
         var methodName = "/Data/DeleteRecuringTransfer"
         var data = { RecuringTransferId: recuringTransferId, SessionToken: sessionToken };
 
-        // return CryptoCaller.callTibFinance(methodName, data);
+        
 
         return CryptoCaller.performCall(methodName, data)
     }
@@ -574,7 +566,7 @@ class ServerCaller {
             SessionToken: sessionToken
         };
 
-        // return CryptoCaller.callTibFinance(methodName, data);
+        
 
         return CryptoCaller.performCall(methodName, data)
     }

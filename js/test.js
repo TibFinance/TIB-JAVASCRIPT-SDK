@@ -8,7 +8,7 @@ var userName = "sdkdev";
 var password = "Test123!"
 var sessionToken = "e814ff3c-e9d9-4117-b115-74faf925298f";
 var merchantId = "EA34F2C6-36B2-4513-973E-A2C91E7985D3";
-var sessionToken = "223dca68-dcaa-460e-b890-d0f4f844129c";
+var sessionToken = "24e05024-0eca-4949-9b0b-3d1f9afd00cd";
 
 $(document).ready(function () {
     // console.log("ready!");
@@ -873,7 +873,7 @@ $(document).on("click", "#createsubclient", function () {
         {CssPropery: "button-color",
         CssValue: "red"},
     ];
-    
+
     new Promise(function (resolve, reject) {
         ServerCaller.CreateSubClient("new subClient", 2, sessionToken)
             .then(function (result) {
@@ -886,6 +886,23 @@ $(document).on("click", "#createsubclient", function () {
             .catch(reject);
     });
 });
+
+$(document).on("click", "#getService", function(){
+    $("#result").html("");
+    showProgress();
+   
+    new Promise(function (resolve, reject) {
+        ServerCaller.GetService(serviceId, sessionToken)
+            .then(function (result) {
+                console.log(result)
+                
+                hideProgress();
+
+                // $("#result").html(_html);
+            })
+            .catch(reject);
+    });
+})
 
 function showProgress() {
     var progressNumber = 0;
