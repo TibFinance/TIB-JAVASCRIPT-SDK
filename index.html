@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>TIB FINANCE TEST</title>
+        <!-- JQuery -->
+        <script src="js/jquery.js"></script>
+        <!-- TIB FINANCE SDK -->
+        <script type="text/javascript" src="tib-finance/CryptoCaller.js"></script>
+        <script type="text/javascript" src="tib-finance/ServerCaller.js"></script>
+        <!-- JS RSA Library -->
+        <script type="text/javascript" src="tib-finance/security.min.js"></script>
+        <!-- Main Script -->
+        <script type="text/javascript" src="js/test.js"></script>
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        
+        <!-- Bootstrap JS -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+        <style>
+            .nav-item{
+                cursor: pointer;
+            }
+        </style>
+    </head>
+    <body id="page-top">
+		<h2>Exemple d'utilisation de SDK</h2>
+		
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+              <div class="navbar-header">
+                <!-- <a class="navbar-brand" href="/">Tib Finance</a> -->
+                <a id="createSession" class="nav-link" >Create Session</a>
+              </div>
+              <ul class="nav navbar-nav">
+                  <!-- Customer -->
+                <li class="dropdown">
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#">Customer
+                  <span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li class="nav-item">
+                    </li>
+                    <li class="nav-item">
+                        <a id="addCustomer" class="nav-link" >Create Customer</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="listCustomer" class="nav-link" >List Customers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="getOneCustomer" class="nav-link" >Search Customer By ID</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="getCustomerByExternalId" class="nav-link" >Search Customer By External ID</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="saveCustomer" class="nav-link" >Save Customer</a>
+                    </li>
+                  </ul>
+                </li>
+
+                <!-- Payement Methods -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Payement Methods
+                    <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li class="nav-item">
+                            <a id="directAccountPaymentMethod">Create Direct Account Payment Method</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="creditCardPaiementMethode">Create Credit Card Payment Method</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="interacPaiementMethode">Create Interac Payment Method</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="getPayementMethod">Search Payment Method</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="listPayementMethods">List Payment Methods</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="setDefaultPaymentMethod">Set Default Payment Method</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="deletePaymentMethod">Delete Payment Method</a>
+                        </li>
+                    </ul>
+                  </li>
+
+                <!-- Payments / Transfers -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Payments / Transfers
+                    <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li class="nav-item">
+                            <a id="createBill">Create Bill</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="listBills">List Bill</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="getBill">Search Bill</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="deleteBill">Delete Bill</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="createPayement">Create Payement</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="createDirectDeposit">Create Direct Deposit</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="createDirectInteracTransaction">Create Direct Interac Transaction</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="createTransactionFromRaw">Create Transaction From Raw</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="createFreeOperation">Create Free Operation</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="deletePayment">Delete Transfer</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="revertTransfer">Revert Transfer</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="deleteRecuringProcess">Delete Recuring process</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="getRecuringTransfers">Get Recuring Transfers</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="deleteRecuringTransfer">Delete Recuring Transfer</a>
+                        </li>
+                        
+                    </ul>
+                </li>
+
+                <!-- Reporting of operations -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Reporting of operations
+                    <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li class="nav-item">
+                            <a id="listExecutedOperations">List Executed Operations</a>
+                        </li>
+
+                    </ul>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        
+        <div class="progress">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%; display: none;"></div>
+        </div>
+
+        <div class="row">
+            <div id="result" class="row" style="padding: 30px;"></div>
+        </div>
+    </body>
+    </html>
