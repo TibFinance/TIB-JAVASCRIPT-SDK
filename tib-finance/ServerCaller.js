@@ -44,7 +44,7 @@ class ServerCaller {
         var methodName = "/Data/ListCustomers"
         var data = {
             ServiceId: serviceId,
-            SesionToken: sessionToken
+            SessionToken: sessionToken
         };
 
         // return CryptoCaller.callTibFinance(methodName, data);
@@ -99,6 +99,7 @@ class ServerCaller {
 
         return CryptoCaller.performCall(methodName, data)
     }
+
     static CreateMerchant(merchantInfo, serviceId, sessionToken) {
         var methodName = "/Data/CreateMerchant";
         var data = {
@@ -162,7 +163,6 @@ class ServerCaller {
         return CryptoCaller.performCall(methodName, data)
     }
 
-
     static ListMerchants(serviceId, sessionToken) {
         var methodName = "/Data/ListMerchants";
         var data = {
@@ -180,9 +180,8 @@ class ServerCaller {
             MerchanntId: merchantId,
             SessionToken: sessionToken
         };
-        return;
+        return CryptoCaller.performCall(methodName, data)
     }
-
 
     static SaveMerchant(merchantId, merchantInfo, sessionToken) {
         var methodName = "/Data/SaveMerchant";
@@ -191,7 +190,7 @@ class ServerCaller {
             MerchantInfo: merchantInfo,
             SessionToken: sessionToken
         };
-        return;
+        return CryptoCaller.performCall(methodName, data)
     }
 
     static SaveMerchantBasicInfo(merchantId, merchantBasicInfo, sessionToken) {
@@ -201,7 +200,7 @@ class ServerCaller {
             MerchantInfo: merchantBasicInfo,
             SessionToken: sessionToken
         };
-        return;
+        return CryptoCaller.performCall(methodName, data)
     }
 
     static SaveMerchantAccountInfo(merchantId, merchantAccount, sessionToken) {
@@ -211,17 +210,17 @@ class ServerCaller {
             Account: merchantAccount,
             SessionToken: sessionToken
         };
-        return;
+        return CryptoCaller.performCall(methodName, data)
     }
+
     static DeleteMerchant(merchantId, sessionToken) {
         var methodName = "/Data/DeleteMerchant";
         var datat = {
             MerchanntId: merchantId,
             SessionToken: sessionToken
         }
-        return;
+        return CryptoCaller.performCall(methodName, data)
     }
-
 
     //Payments / Transfers methodes :
 
@@ -345,6 +344,7 @@ class ServerCaller {
 
         return CryptoCaller.performCall(methodName, data)
     }
+
     static ChangeInteracPaymentMethodQuestionAndAnswer(interacPaymentMethodId, interacQuestion, interacAnswer, SessionToken) {
         var methodName = "/data/ChangeInteracPaymentMethodQuestionAndAnswer";
         var data = {
@@ -353,7 +353,7 @@ class ServerCaller {
             InteracAnswer: interacAnswer,
             SessionToken: SessionToken
         }
-        return;
+        return CryptoCaller.performCall(methodName, data)
     }
 
     static deletePaymentMethod(paymentMethodId, sessionToken) {
@@ -366,6 +366,16 @@ class ServerCaller {
         // return CryptoCaller.callTibFinance(methodName, data);
 
         return CryptoCaller.performCall(methodName, data)
+    }
+
+    static deletePayment(paymentId, SessionToken){
+        var methodName = "/Data/DeletePayment";
+
+        var data ={
+            PaymentId :paymentId,
+            SessionToken :SessionToken
+        };
+        return CryptoCaller.performCall(methodName, data);
     }
 
     static createBill(breakIfMerchantNeverBeenAuthorized, billDataObject, sessionToken) {
@@ -381,9 +391,10 @@ class ServerCaller {
         return CryptoCaller.performCall(methodName, data)
     }
 
-    static listBills(merchantId, fromDateTime, toDateTime, sessionToken) {
+    static listBills(merchantId, serviceId, fromDateTime, toDateTime, sessionToken) {
         var methodName = "/Data/ListBills"
         var data = {
+            ServiceId: serviceId, 
             MerchantId: merchantId,
             FromDateTime: fromDateTime,
             FromDateTime: toDateTime,
@@ -420,7 +431,7 @@ class ServerCaller {
     }
 
     static createPayment(billId, setPaymentCustomerFromBill, CustomerEmail, paymentInfo, externalReferenceId, askForCustomerConsent, safetyToBreakIfOverRemainingBillAmount, autorizedPaymentMethod, doNotSendEmail, statementDescription, sessionToken) {
-        var methodName = "/Data/c"
+        var methodName = "/Data/CreatePayment"
         var data = {
             BillId: billId,
             SetPaymentCustomerFromBill: setPaymentCustomerFromBill,
@@ -568,9 +579,7 @@ class ServerCaller {
         return CryptoCaller.performCall(methodName, data)
     }
 
-
     //// WhiteLabeling Section
-
 
     static SetwhiteLabeling(id, level, whitelabelingData, sessionToken) {
         var methodName = "/Data/SetWhiteLabeling";
@@ -580,8 +589,9 @@ class ServerCaller {
             WhiteLabelingData: whitelabelingData,
             SessionToken: sessionToken
         }
-        return;
+        return CryptoCaller.performCall(methodName, data)
     }
+
     static GetWhiteLabelingData(id, level, sessionToken) {
         var methodName = "/Data/GetWhiteLabelingData";
         var data = {
@@ -589,8 +599,9 @@ class ServerCaller {
             WhitelabelingLevel: level,
             SessionToken: sessionToken
         }
-        return;
+        return CryptoCaller.performCall(methodName, data)
     }
+    
     static updateWhiteLabelingData(id, level, whitelabelingData, sessionToken) {
         var methodName = "/Data/UpdateWhiteLabelingData";
         var data = {
@@ -601,6 +612,7 @@ class ServerCaller {
         }
         return CryptoCaller.performCall(methodName, data);
     }
+
     static deleteWhiteLabelingData(id, level, whitelabelingData, sessionToken) {
         var methodName = "/Data/DeleteWhiteLabeling";
         var data = {
@@ -608,8 +620,9 @@ class ServerCaller {
             WhitelabelingLevel: level,
             SessionToken: sessionToken
         }
-        return;
+        return CryptoCaller.performCall(methodName, data)
     }
+
     static getListWhiteLabelingData(sessionToken) {
         var methodName = "/Data/GetListWhiteLabelingData";
         var data = {
@@ -629,6 +642,7 @@ class ServerCaller {
 
         return CryptoCaller.performCall(methodName, data);
     }
+
     static CreateSubClient(name, language, SessionToken) {
         var methodName = "/Data/CreateSubClient";
 
@@ -680,6 +694,17 @@ class ServerCaller {
             ExternalSystemId: externalSystemId,
             ExternalSystemGroupId: externalSystemGroupId,
             SessionToken: sessionToken
+        };
+
+        return CryptoCaller.performCall(methodName, data);
+    }
+    static GetMerchant(merchantId, sessionToken)
+    {
+        var methodName = "/Data/GetMerchant";
+
+        var data = {
+            MerchantId :merchantId,
+            SessionToken:sessionToken
         };
 
         return CryptoCaller.performCall(methodName, data);
@@ -825,14 +850,6 @@ class ServerCaller {
             SessionToken: sessionToken
         };
         return CryptoCaller.performCall(methodName, data);
-    }
-
-    static GetDropInPublicToken() {
-
-    }
-
-    static GetDropInPublicToken() {
-
     }
 
 }

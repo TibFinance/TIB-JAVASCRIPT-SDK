@@ -8,7 +8,7 @@
  */
 
 class CryptoCaller{
-  static serverURL = "http://sandboxportal.tib.finance";
+  static serverURL = "";
   static sessionId = "";
   static serviceId;
   static clientId;
@@ -209,45 +209,7 @@ class CryptoCaller{
       });
     }
 
-    // /**
-    //  * Preparer les données en ajoutant le sessionId et le service Id
-    //  * Cette méthode est à utiliser après la création de la session
-    //  * 
-    //  * @param {*} data 
-    //  * @param {*} serviceId 
-    //  * @param {*} session 
-    //  * @returns 
-    //  */
-    // static preparData(data, serviceId, sessionId)
-    // {
-    //   data.SessionToken = sessionId; 
-    //   data.ServiceId = serviceId; 
-  
-    //   return data;
-    // }
-
-    // /**
-    //  * Appeler l'API TIB FINANCE
-    //  * Cette méthode est le point d'entrer vers le SDK. C'est à utiliser par le projet qui intégre le SDK
-    //  * 
-    //  * @param {*} methodName 
-    //  * @param {*} data 
-    //  * @param {*} serviceId 
-    //  * @param {*} clientId 
-    //  * @param {*} userName 
-    //  * @param {*} password 
-    //  * @returns 
-    //  */
-    // static callTibFinance(methodName, data)
-    // {
-    //   return new Promise(function (resolve, reject) {
-    //     CryptoCaller.createSession(CryptoCaller.clientId, CryptoCaller.userName, CryptoCaller.password)
-    //       .then(function (sessionId) { return CryptoCaller.preparData(data, CryptoCaller.serviceId, CryptoCaller.sessionId); /*data.SessionToken = session.SessionId; data.ServiceId = serviceId; return data;*/})//Crypt the symetric key and the local PublicKey(that the server will use the crypt the return) using the server provided public key.
-    //       .then(function (data) { return CryptoCaller.performCall(methodName, data); })
-    //       .then(resolve)
-    //       .catch(reject);
-    //   });
-    // }
+   
     
     /**
      * Crypter la clé symetric et echanger les clés
