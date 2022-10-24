@@ -6,9 +6,8 @@ var serviceId = "038D7171-BF23-4F3C-9E78-CF6342624FC7";
 var clientId = "4671a4c9-4367-4934-bb23-a8886cebd028";
 var userName = "sdkdev";
 var password = "Test123!"
-var sessionToken = "e814ff3c-e9d9-4117-b115-74faf925298f";
 var merchantId = "EA34F2C6-36B2-4513-973E-A2C91E7985D3";
-var sessionToken = "24e05024-0eca-4949-9b0b-3d1f9afd00cd";
+var sessionToken = "7ed50718-9330-49f3-833f-cbe8fe52f90a";
 
 $(document).ready(function () {
     // console.log("ready!");
@@ -359,7 +358,27 @@ $(document).on("click", "#deletePaymentMethod", function () {
     new Promise(function (resolve, reject) {
         ServerCaller.deletePaymentMethod(payementMethodId, sessionToken)
             .then(function (result) {
-var _html ="";
+                var _html = "";
+                hideProgress();
+
+                $("#result").html(_html);
+            })
+            .catch(reject);
+    });
+});
+
+$(document).on("click", "#listWhiteLabeling", function () {
+    $("#result").html("");
+    showProgress();
+
+    var payementMethodId = "0ce18bb1-5fef-40f1-892f-828a1fc21b97";
+    // the Init Call Was Here
+
+    new Promise(function (resolve, reject) {
+        ServerCaller.getListWhiteLabelingData(clientId, 3, sessionToken)
+            .then(function (result) {
+                var _html = "";
+                console.log(result)
                 hideProgress();
 
                 $("#result").html(_html);
@@ -804,30 +823,13 @@ $(document).on("click", "#getWhiteLabeling", function () {
     // the Init Call Was Here
 
     new Promise(function (resolve, reject) {
-        ServerCaller.GetWhiteLabelingData(clientId,3,  sessionToken)
+        ServerCaller.GetWhiteLabelingData(clientId, 3, sessionToken)
             .then(function (result) {
                 console.log(result)
-                
+
                 hideProgress();
 
                 $("#result").html(_html);
-            })
-            .catch(reject);
-    });
-});
-
-$(document).on("click", "#listServices", function () {
-    $("#result").html("");
-    showProgress();
-
-    new Promise(function (resolve, reject) {
-        ServerCaller.ListServices(merchantId, sessionToken)
-            .then(function (result) {
-                console.log(result)
-                
-                hideProgress();
-
-                // $("#result").html(_html);
             })
             .catch(reject);
     });
@@ -837,21 +839,39 @@ $(document).on("click", "#setWhiteLabeling", function () {
     $("#result").html("");
     showProgress();
 
- 
+
     // the Init Call Was Here
     var whiteLabelingData = [
         {
-            CssPropery: "background-color",
+            CssProperty: "background-color",
             CssValue: "black"
         },
-        {CssPropery: "button-color",
-        CssValue: "red"},
+        {
+            CssProperty: "button-color",
+            CssValue: "red"
+        },
     ];
     new Promise(function (resolve, reject) {
-        ServerCaller.SetwhiteLabeling(clientId, 3, whiteLabelingData , sessionToken)
+        ServerCaller.SetwhiteLabeling(clientId, 3, whiteLabelingData, sessionToken)
             .then(function (result) {
                 console.log(result)
-                
+
+                hideProgress();
+
+                // $("#result").html(_html);
+            })
+            .catch(reject);
+    });
+});
+$(document).on("click", "#listServices", function () {
+    $("#result").html("");
+    showProgress();
+
+    new Promise(function (resolve, reject) {
+        ServerCaller.ListServices(merchantId, sessionToken)
+            .then(function (result) {
+                console.log(result)
+
                 hideProgress();
 
                 // $("#result").html(_html);
@@ -860,25 +880,68 @@ $(document).on("click", "#setWhiteLabeling", function () {
     });
 });
 
+$(document).on("click", "#updateWhiteLabeling", function () {
+    $("#result").html("");
+    showProgress();
+
+
+    // the Init Call Was Here
+    var whiteLabelingData = [
+        {
+            id: "f04b6335-00d4-483e-abd8-5fc5ce3433d6",
+            CssPropery: "background-color",
+            CssValue: "yellow"
+        }
+    ];
+    new Promise(function (resolve, reject) {
+        ServerCaller.updateWhiteLabelingData(clientId, 3, whiteLabelingData, sessionToken)
+            .then(function (result) {
+                console.log(result)
+
+                hideProgress();
+
+                // $("#result").html(_html);
+            })
+            .catch(reject);
+    });
+});
+$(document).on("click", "#deleteWhiteLabeling", function () {
+    $("#result").html("");
+    showProgress();
+
+    new Promise(function (resolve, reject) {
+        ServerCaller.deleteWhiteLabeling(clientId, 3, sessionToken)
+            .then(function (result) {
+                console.log(result)
+                hideProgress();
+            })
+            .catch(reject);
+    });
+});
+
+
+
 $(document).on("click", "#createsubclient", function () {
     $("#result").html("");
     showProgress();
-     
+
     // the Init Call Was Here
     var whiteLabelingData = [
         {
             CssPropery: "background-color",
             CssValue: "black"
         },
-        {CssPropery: "button-color",
-        CssValue: "red"},
+        {
+            CssPropery: "button-color",
+            CssValue: "red"
+        },
     ];
 
     new Promise(function (resolve, reject) {
         ServerCaller.CreateSubClient("new subClient", 2, sessionToken)
             .then(function (result) {
                 console.log(result)
-                
+
                 hideProgress();
 
                 // $("#result").html(_html);
@@ -887,15 +950,15 @@ $(document).on("click", "#createsubclient", function () {
     });
 });
 
-$(document).on("click", "#getService", function(){
+$(document).on("click", "#getService", function () {
     $("#result").html("");
     showProgress();
-   
+
     new Promise(function (resolve, reject) {
         ServerCaller.GetService(serviceId, sessionToken)
             .then(function (result) {
                 console.log(result)
-                
+
                 hideProgress();
 
                 // $("#result").html(_html);

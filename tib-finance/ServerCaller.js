@@ -49,18 +49,14 @@ class ServerCaller {
         var data = {
             CustomerId: customerId,
             SessionToken: sessionToken
-        };
-
-        
+        };       
 
         return CryptoCaller.performCall(methodName, data)
     }
 
     static getCustomersByExternalId(externalCustomerId, sessionToken) {
         var methodName = "/Data/GetCustomersByExternalId";
-        var data = { ExternalCustomerId: externalCustomerId, SessionToken: sessionToken };
-
-        
+        var data = { ExternalCustomerId: externalCustomerId, SessionToken: sessionToken };       
 
         return CryptoCaller.performCall(methodName, data)
     }
@@ -599,13 +595,13 @@ class ServerCaller {
         var data = {
             Id: id,
             WhitelabelingLevel: level,
-            WhiteLabelingData: whitelabelingData,
+            UpdatedWhiteLabelingData: whitelabelingData,
             SessionToken: sessionToken
         }
         return CryptoCaller.performCall(methodName, data);
     }
 
-    static deleteWhiteLabelingData(id, level, whitelabelingData, sessionToken) {
+    static deleteWhiteLabeling(id, level, sessionToken) {
         var methodName = "/Data/DeleteWhiteLabeling";
         var data = {
             Id: id,
