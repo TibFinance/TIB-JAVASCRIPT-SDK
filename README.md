@@ -3,8 +3,6 @@
 
 This is a technical document  on how to use the Tib PHP Sdk .
 
-
-
 ## Overview 
 Before you start Using the Sdk you'll need to know some basic concept the We Use and the Different Objects and Whats their role in the app.
 
