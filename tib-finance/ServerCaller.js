@@ -11,6 +11,7 @@ class ServerCaller {
             Username: username,
             Password: password
         };
+        
         return CryptoCaller.performCall(methodName, data)
     }
 
@@ -326,9 +327,7 @@ class ServerCaller {
             PaymentMethodId: paymentMethodId,
             CustomerId: customerId,
             SessionToken: sessionToken
-        };
-
-        
+        };       
 
         return CryptoCaller.performCall(methodName, data)
     }
@@ -351,8 +350,6 @@ class ServerCaller {
             SessionToken: sessionToken
         };
 
-        
-
         return CryptoCaller.performCall(methodName, data)
     }
 
@@ -374,8 +371,6 @@ class ServerCaller {
             SessionToken: sessionToken
         };
 
-        
-
         return CryptoCaller.performCall(methodName, data)
     }
 
@@ -389,8 +384,6 @@ class ServerCaller {
             SessionToken: sessionToken
         };
 
-        
-
         return CryptoCaller.performCall(methodName, data)
     }
 
@@ -401,8 +394,6 @@ class ServerCaller {
             SessionToken: sessionToken
         };
 
-        
-
         return CryptoCaller.performCall(methodName, data)
     }
 
@@ -412,8 +403,6 @@ class ServerCaller {
             billId: billId,
             SessionToken: sessionToken
         };
-
-        
 
         return CryptoCaller.performCall(methodName, data)
     }
@@ -435,8 +424,6 @@ class ServerCaller {
             SessionToken: sessionToken
         };
 
-        
-
         return CryptoCaller.performCall(methodName, data)
     }
 
@@ -453,8 +440,6 @@ class ServerCaller {
             SessionToken: sessionToken
         };
 
-        
-
         return CryptoCaller.performCall(methodName, data)
     }
 
@@ -470,9 +455,7 @@ class ServerCaller {
             Amount: amount,
             SessionToken: sessionToken
         };
-
         
-
         return CryptoCaller.performCall(methodName, data)
     }
 
@@ -483,8 +466,6 @@ class ServerCaller {
             RawAcpFileContent: rawAcpFileContent,
             SessionToken: sessionToken
         };
-
-        
 
         return CryptoCaller.performCall(methodName, data)
     }
@@ -504,8 +485,6 @@ class ServerCaller {
             SessionToken: sessionToken
         };
 
-        
-
         return CryptoCaller.performCall(methodName, data)
     }
 
@@ -516,16 +495,12 @@ class ServerCaller {
             SessionToken: sessionToken
         };
 
-        
-
         return CryptoCaller.performCall(methodName, data)
     }
 
      revertTransfer(transferId, sessionToken) {
         var methodName = "/Data/RevertTransfer"
         var data = { TransferId: transferId, SessionToken: sessionToken };
-
-        
 
         return CryptoCaller.performCall(methodName, data)
     }
@@ -534,16 +509,12 @@ class ServerCaller {
         var methodName = "/Data/GetRecuringTransfers"
         var data = { ServiceId: serviceId, SessionToken: sessionToken };
 
-        
-
         return CryptoCaller.performCall(methodName, data)
     }
 
      deleteRecuringTransfer(recuringTransferId, sessionToken) {
         var methodName = "/Data/DeleteRecuringTransfer"
         var data = { RecuringTransferId: recuringTransferId, SessionToken: sessionToken };
-
-        
 
         return CryptoCaller.performCall(methodName, data)
     }
@@ -562,8 +533,6 @@ class ServerCaller {
             SessionToken: sessionToken
         };
 
-        
-
         return CryptoCaller.performCall(methodName, data)
     }
 
@@ -577,6 +546,7 @@ class ServerCaller {
             WhiteLabelingData: whitelabelingData,
             SessionToken: sessionToken
         }
+
         return CryptoCaller.performCall(methodName, data)
     }
 
@@ -587,6 +557,7 @@ class ServerCaller {
             WhitelabelingLevel: level,
             SessionToken: sessionToken
         }
+
         return CryptoCaller.performCall(methodName, data)
     }
     
@@ -598,6 +569,7 @@ class ServerCaller {
             UpdatedWhiteLabelingData: whitelabelingData,
             SessionToken: sessionToken
         }
+
         return CryptoCaller.performCall(methodName, data);
     }
 
@@ -608,6 +580,7 @@ class ServerCaller {
             WhitelabelingLevel: level,
             SessionToken: sessionToken
         }
+
         return CryptoCaller.performCall(methodName, data)
     }
 
@@ -616,6 +589,7 @@ class ServerCaller {
         var data = {
             SessionToken: sessionToken
         }
+
         return CryptoCaller.performCall(methodName, data);
     }
 
@@ -733,6 +707,7 @@ class ServerCaller {
             Password: password,
             SessionToken: sessionToken
         }
+
         return CryptoCaller.performCall(methodName, data);
     }
 
@@ -768,6 +743,7 @@ class ServerCaller {
             MerchantId: merchantId,
             SessionToken: sessionToken
         }
+
         return CryptoCaller.performCall(methodName, data);
     }
 
@@ -801,6 +777,7 @@ class ServerCaller {
             DasPaymentQuebec: DasPaymentQuebec,
             SessionToken: sessionToken
         }
+
         return CryptoCaller.performCall(methodName, data)
     }
 
@@ -810,6 +787,7 @@ class ServerCaller {
             MerchantId: merchantId,
             SesisonToken: sessionToken
         }
+
         return CryptoCaller.performCall(methodName, data);
     }
 
@@ -820,6 +798,7 @@ class ServerCaller {
             dasProviderId: dasProviderId,
             SessionToken: sessionToken
         };
+
         return CryptoCaller.performCall(methodName, data);
     }
 
@@ -837,6 +816,7 @@ class ServerCaller {
             ServiceId: serviceId,
             SessionToken: sessionToken
         };
+
         return CryptoCaller.performCall(methodName, data);
     }
 

@@ -169,9 +169,7 @@ class CryptoCaller{
           });
       });
     }
-
-   
-    
+ 
     /**
      * Crypter la clé symetric et echanger les clés
      * 
