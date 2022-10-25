@@ -7,12 +7,12 @@ var clientId = "4671a4c9-4367-4934-bb23-a8886cebd028";
 var userName = "sdkdev";
 var password = "Test123!"
 var merchantId = "EA34F2C6-36B2-4513-973E-A2C91E7985D3";
-var sessionToken = "7ed50718-9330-49f3-833f-cbe8fe52f90a";
+var sessionToken = "482f87db-9fbe-4e33-b8a1-4ebe4982d6c9";
 
-var theCaller = new ServerCaller() 
+var serverCaller = new ServerCaller() 
 $(document).ready(function () {
     // innit the Url 
-    theCaller.initalize("http://sandboxportal.tib.finance");
+    serverCaller.initalize("http://sandboxportal.tib.finance");
     
 });
 
@@ -29,7 +29,7 @@ $(document).on("click", "#createSession", function () {
 
 
     new Promise(function (resolve, reject) {
-        theCaller.createSession(clientId, userName, password)
+        serverCaller.createSession(clientId, userName, password)
             .then(function (result) {
                 console.log(result)
                 var _html = "<h4>Session Token<small>(Passed With Every Call)</small> :<br/> </h4>" + result.SessionId;
@@ -55,7 +55,7 @@ $(document).on("click", "#addCustomer", function () {
 
 
     new Promise(function (resolve, reject) {
-        theCaller.createCustomer(name, externalId, language, description, serviceId, sessionToken)
+        serverCaller.createCustomer(name, externalId, language, description, serviceId, sessionToken)
             .then(function (result) {
                 console.log(result)
                 var _html = "<h4>Customer Id  :<br/> </h4>" + result.CustomerId;
@@ -75,7 +75,7 @@ $(document).on("click", "#listCustomer", function () {
 
 
     new Promise(function (resolve, reject) {
-        theCaller.listCustomers(serviceId, sessionToken)
+        serverCaller.listCustomers(serviceId, sessionToken)
             .then(function (result) {
                 console.log(result)
                 var _html = "<table class='table'>";
@@ -110,7 +110,7 @@ $(document).on("click", "#getOneCustomer", function () {
 
 
     new Promise(function (resolve, reject) {
-        theCaller.getCustomer(customerId, sessionToken)
+        serverCaller.getCustomer(customerId, sessionToken)
             .then(function (result) {
                 var _html = "<table class='table'>";
                 _html += "<thead><tr><th>CustomerId</th><th>CustomerName</th><th>CustomerExternalId</th><th>Language</th><th>Customer Description</th></tr></thead>";
@@ -141,7 +141,7 @@ $(document).on("click", "#getCustomerByExternalId", function () {
     var customerExternalId = "1122ZEE";
 
     new Promise(function (resolve, reject) {
-        theCaller.getCustomersByExternalId(customerExternalId, sessionToken)
+        serverCaller.getCustomersByExternalId(customerExternalId, sessionToken)
             .then(function (result) {
                 console.log(result)
                 var _html = "<table class='table'>";
@@ -181,7 +181,7 @@ $(document).on("click", "#saveCustomer", function () {
 
 
     new Promise(function (resolve, reject) {
-        theCaller.saveCustomer(customerId, customerName, externalId, language, customerDescription, sessionToken)
+        serverCaller.saveCustomer(customerId, customerName, externalId, language, customerDescription, sessionToken)
             .then(function (result) {
                 hideProgress();
             })
@@ -197,7 +197,7 @@ $(document).on("click", "#deleteCustomer", function () {
 
 
     new Promise(function (resolve, reject) {
-        theCaller.deleteCustomer(customerId, sessionToken)
+        serverCaller.deleteCustomer(customerId, sessionToken)
             .then(function (result) {
                 hideProgress();
             })
@@ -211,11 +211,11 @@ $(document).on("click", "#directAccountPaymentMethod", function () {
 
     var customerId = "3004c5df-9f6d-4ae6-b5ee-c30ef8b845ee";
     var isCustomerAutomaticPaymentMethod = true;
-    var account = theCaller.createBankAccountObject("Jeff Testing", "Personal bank account", "003", "12345", "9876543");
+    var account = serverCaller.createBankAccountObject("Jeff Testing", "Personal bank account", "003", "12345", "9876543");
 
 
     new Promise(function (resolve, reject) {
-        theCaller.createDirectAccountPaymentMethod(customerId, isCustomerAutomaticPaymentMethod, account, sessionToken)
+        serverCaller.createDirectAccountPaymentMethod(customerId, isCustomerAutomaticPaymentMethod, account, sessionToken)
             .then(function (result) {
                 var _html = "<h4>PaymentMethodId : </h4> " + result.PaymentMethodId;
                 hideProgress();
@@ -231,11 +231,11 @@ $(document).on("click", "#creditCardPaiementMethode", function () {
 
     var customerId = "3004c5df-9f6d-4ae6-b5ee-c30ef8b845ee";
     var isCustomerAutomaticPaymentMethod = true;
-    var CreditCard = theCaller.createCreditCardObject("4242424242424242", "123", "12", "24", "Test Card", "Johny Cardholder", "1 Testing road", "Testcity", "10", "1", "H1H1H1");
+    var CreditCard = serverCaller.createCreditCardObject("4242424242424242", "123", "12", "24", "Test Card", "Johny Cardholder", "1 Testing road", "Testcity", "10", "1", "H1H1H1");
 
 
     new Promise(function (resolve, reject) {
-        theCaller.createCreditCardPaymentMethod(customerId, isCustomerAutomaticPaymentMethod, CreditCard, sessionToken)
+        serverCaller.createCreditCardPaymentMethod(customerId, isCustomerAutomaticPaymentMethod, CreditCard, sessionToken)
             .then(function (result) {
                 var _html = "<h4>PaymentMethodId : </h4> " + result.PaymentMethodId;
                 hideProgress();
@@ -251,10 +251,10 @@ $(document).on("click", "#interacPaiementMethode", function () {
 
     var customerId = "3004c5df-9f6d-4ae6-b5ee-c30ef8b845ee";
     var isCustomerAutomaticPaymentMethod = true;
-    var InteracInformation = theCaller.createInteracObject("Interac Test", "Kelly Interac", "kinterac@dummytest.com", "8881234567", "Remember the fruit", "Orange");
+    var InteracInformation = serverCaller.createInteracObject("Interac Test", "Kelly Interac", "kinterac@dummytest.com", "8881234567", "Remember the fruit", "Orange");
 
     new Promise(function (resolve, reject) {
-        theCaller.createInteracPaymentMethod(customerId, isCustomerAutomaticPaymentMethod, InteracInformation, sessionToken)
+        serverCaller.createInteracPaymentMethod(customerId, isCustomerAutomaticPaymentMethod, InteracInformation, sessionToken)
             .then(function (result) {
                 var _html = "<h4>PaymentMethodId : </h4> " + result.PaymentMethodId;
                 hideProgress();
@@ -272,7 +272,7 @@ $(document).on("click", "#getPayementMethod", function () {
 
 
     new Promise(function (resolve, reject) {
-        theCaller.getPaymentMethod(paymentMethodId, sessionToken)
+        serverCaller.getPaymentMethod(paymentMethodId, sessionToken)
             .then(function (result) {
                 var _html = "<table class='table'>";
                 _html += "<thead><tr><th>Payment Method Id</th><th>Payment Method Description</th><th>Payment Method Type</th><th>Payment Method Owner</th></tr></thead>";
@@ -303,7 +303,7 @@ $(document).on("click", "#listPayementMethods", function () {
 
 
     new Promise(function (resolve, reject) {
-        theCaller.listPaymentMethods(customerId, sessionToken)
+        serverCaller.listPaymentMethods(customerId, sessionToken)
             .then(function (result) {
                 var _html = "<table class='table'>";
                 _html += "<thead><tr><th>Payment Method Id</th><th>Payment Method Description</th><th>Payment Method Type</th><th>Payment Method Owner</th><th>Is Customer Automatic Payment Method</th></tr></thead>";
@@ -338,7 +338,7 @@ $(document).on("click", "#setDefaultPaymentMethod", function () {
     // the Init Call Was Here
 
     new Promise(function (resolve, reject) {
-        theCaller.setDefaultPaymentMethod(payementMethodId, customerId, sessionToken)
+        serverCaller.setDefaultPaymentMethod(payementMethodId, customerId, sessionToken)
             .then(function (result) {
                 var _html = "";
                 hideProgress();
@@ -357,7 +357,7 @@ $(document).on("click", "#deletePaymentMethod", function () {
     // the Init Call Was Here
 
     new Promise(function (resolve, reject) {
-        theCaller.deletePaymentMethod(payementMethodId, sessionToken)
+        serverCaller.deletePaymentMethod(payementMethodId, sessionToken)
             .then(function (result) {
                 var _html = "";
                 hideProgress();
@@ -376,7 +376,7 @@ $(document).on("click", "#listWhiteLabeling", function () {
     // the Init Call Was Here
 
     new Promise(function (resolve, reject) {
-        theCaller.getListWhiteLabelingData(clientId, 3, sessionToken)
+        serverCaller.getListWhiteLabelingData(clientId, 3, sessionToken)
             .then(function (result) {
                 var _html = "";
                 console.log(result)
@@ -409,7 +409,7 @@ $(document).on("click", "#createBill", function () {
     // the Init Call Was Here
 
     new Promise(function (resolve, reject) {
-        theCaller.createBill(breakIfMerchantNeverBeenAuthorized, billObject, sessionToken)
+        serverCaller.createBill(breakIfMerchantNeverBeenAuthorized, billObject, sessionToken)
             .then(function (result) {
                 var _html = "<h4>BillId : </h4> " + result.BillId;
                 hideProgress();
@@ -429,7 +429,7 @@ $(document).on("click", "#listBills", function () {
     // the Init Call Was Here
 
     new Promise(function (resolve, reject) {
-        theCaller.listBills(merchantId, serviceId, fromDateTime, toDateTime, sessionToken)
+        serverCaller.listBills(merchantId, serviceId, fromDateTime, toDateTime, sessionToken)
             .then(function (result) {
                 console.log(result)
                 var _html = "<table class='table'>";
@@ -464,7 +464,7 @@ $(document).on("click", "#getBill", function () {
     // the Init Call Was Here
 
     new Promise(function (resolve, reject) {
-        theCaller.getBill(billId, sessionToken)
+        serverCaller.getBill(billId, sessionToken)
             .then(function (result) {
                 var _html = "<table class='table'>";
                 _html += "<thead><tr><th>Bill Id</th><th>Created Date</th><th>Merchant Id</th><th>Bill Title</th><th>Bill Description</th></tr></thead>";
@@ -498,7 +498,7 @@ $(document).on("click", "#deleteBill", function () {
     // the Init Call Was Here
 
     new Promise(function (resolve, reject) {
-        theCaller.deleteBill(billId, sessionToken)
+        serverCaller.deleteBill(billId, sessionToken)
             .then(function (result) {
 
                 hideProgress();
@@ -524,7 +524,7 @@ $(document).on("click", "#createPayement", function () {
     // the Init Call Was Here
 
     new Promise(function (resolve, reject) {
-        theCaller.createPayment(billId, setPaymentCustomerFromBill, "customerEmail@gmail.com", paymentInfo, sessionToken)
+        serverCaller.createPayment(billId, setPaymentCustomerFromBill, "customerEmail@gmail.com", paymentInfo, sessionToken)
             .then(function (result) {
                 hideProgress();
 
@@ -559,7 +559,7 @@ $(document).on("click", "#createDirectDeposit", function () {
     // the Init Call Was Here
 
     new Promise(function (resolve, reject) {
-        theCaller.createDirectDeposit(originMerchantId, destinationAccount, depositDueDate, currency, language, referenceNumber, amount, sessionToken)
+        serverCaller.createDirectDeposit(originMerchantId, destinationAccount, depositDueDate, currency, language, referenceNumber, amount, sessionToken)
             .then(function (result) {
                 hideProgress();
 
@@ -598,7 +598,7 @@ $(document).on("click", "#createDirectInteracTransaction", function () {
     // the Init Call Was Here
 
     new Promise(function (resolve, reject) {
-        theCaller.createDirectInteracTransaction(originMerchantId, destinationAccount, depositDueDate, currency, language, referenceNumber, amount, sessionToken)
+        serverCaller.createDirectInteracTransaction(originMerchantId, destinationAccount, depositDueDate, currency, language, referenceNumber, amount, sessionToken)
             .then(function (result) {
                 hideProgress();
 
@@ -621,7 +621,7 @@ $(document).on("click", "#createTransactionFromRaw", function () {
     // the Init Call Was Here
 
     new Promise(function (resolve, reject) {
-        theCaller.createTransactionFromRaw(merchantId, rawAcpFileContent, sessionToken)
+        serverCaller.createTransactionFromRaw(merchantId, rawAcpFileContent, sessionToken)
             .then(function (result) {
                 hideProgress();
 
@@ -651,7 +651,7 @@ $(document).on("click", "#createFreeOperation", function () {
     // the Init Call Was Here
 
     new Promise(function (resolve, reject) {
-        theCaller.createFreeOperation(merchantId, paymentMethodId, transferType, referenceNumber, amount, language, transactionDueDate, groupId, transferFrequency, sessionToken)
+        serverCaller.createFreeOperation(merchantId, paymentMethodId, transferType, referenceNumber, amount, language, transactionDueDate, groupId, transferFrequency, sessionToken)
             .then(function (result) {
                 hideProgress();
 
@@ -673,7 +673,7 @@ $(document).on("click", "#deletePayment", function () {
     // the Init Call Was Here
 
     new Promise(function (resolve, reject) {
-        theCaller.deletePayment(payementId, sessionToken)
+        serverCaller.deletePayment(payementId, sessionToken)
             .then(function (result) {
                 hideProgress();
 
@@ -695,7 +695,7 @@ $(document).on("click", "#revertTransfer", function () {
     // the Init Call Was Here
 
     new Promise(function (resolve, reject) {
-        theCaller.revertTransfer(transferId, sessionToken)
+        serverCaller.revertTransfer(transferId, sessionToken)
             .then(function (result) {
                 hideProgress();
 
@@ -715,7 +715,7 @@ $(document).on("click", "#getRecuringTransfers", function () {
     // the Init Call Was Here
 
     new Promise(function (resolve, reject) {
-        theCaller.getRecuringTransfers(serviceId, sessionToken)
+        serverCaller.getRecuringTransfers(serviceId, sessionToken)
             .then(function (result) {
                 hideProgress();
 
@@ -759,7 +759,7 @@ $(document).on("click", "#deleteRecuringTransfer", function () {
     // the Init Call Was Here
 
     new Promise(function (resolve, reject) {
-        theCaller.deleteRecuringTransfer(recuringTransferId, sessionToken)
+        serverCaller.deleteRecuringTransfer(recuringTransferId, sessionToken)
             .then(function (result) {
                 hideProgress();
 
@@ -787,7 +787,7 @@ $(document).on("click", "#listExecutedOperations", function () {
     // the Init Call Was Here
 
     new Promise(function (resolve, reject) {
-        theCaller.listExecutedOperations(fromDate, toDate, transferType, transferGroupId,
+        serverCaller.listExecutedOperations(fromDate, toDate, transferType, transferGroupId,
             onlyWithErrors, merchantId, dateType, sessionToken)
             .then(function (result) {
                 console.log(result)
@@ -824,7 +824,7 @@ $(document).on("click", "#getWhiteLabeling", function () {
     // the Init Call Was Here
 
     new Promise(function (resolve, reject) {
-        theCaller.GetWhiteLabelingData(clientId, 3, sessionToken)
+        serverCaller.getWhiteLabelingData(clientId, 3, sessionToken)
             .then(function (result) {
                 console.log(result)
 
@@ -853,7 +853,7 @@ $(document).on("click", "#setWhiteLabeling", function () {
         },
     ];
     new Promise(function (resolve, reject) {
-        theCaller.SetwhiteLabeling(clientId, 3, whiteLabelingData, sessionToken)
+        serverCaller.setwhiteLabeling(clientId, 3, whiteLabelingData, sessionToken)
             .then(function (result) {
                 console.log(result)
 
@@ -869,7 +869,7 @@ $(document).on("click", "#listServices", function () {
     showProgress();
 
     new Promise(function (resolve, reject) {
-        theCaller.ListServices(merchantId, sessionToken)
+        serverCaller.listServices(merchantId, sessionToken)
             .then(function (result) {
                 console.log(result)
 
@@ -895,7 +895,7 @@ $(document).on("click", "#updateWhiteLabeling", function () {
         }
     ];
     new Promise(function (resolve, reject) {
-        theCaller.updateWhiteLabelingData(clientId, 3, whiteLabelingData, sessionToken)
+        serverCaller.updateWhiteLabelingData(clientId, 3, whiteLabelingData, sessionToken)
             .then(function (result) {
                 console.log(result)
 
@@ -911,7 +911,7 @@ $(document).on("click", "#deleteWhiteLabeling", function () {
     showProgress();
 
     new Promise(function (resolve, reject) {
-        theCaller.deleteWhiteLabeling(clientId, 3, sessionToken)
+        serverCaller.deleteWhiteLabeling(clientId, 3, sessionToken)
             .then(function (result) {
                 console.log(result)
                 hideProgress();
@@ -939,7 +939,7 @@ $(document).on("click", "#createsubclient", function () {
     ];
 
     new Promise(function (resolve, reject) {
-        theCaller.CreateSubClient("new subClient", 2, sessionToken)
+        serverCaller.createSubClient("new subClient", 2, sessionToken)
             .then(function (result) {
                 console.log(result)
 
@@ -956,7 +956,7 @@ $(document).on("click", "#getService", function () {
     showProgress();
 
     new Promise(function (resolve, reject) {
-        theCaller.GetService(serviceId, sessionToken)
+        serverCaller.getService(serviceId, sessionToken)
             .then(function (result) {
                 console.log(result)
 
