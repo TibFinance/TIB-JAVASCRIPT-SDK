@@ -4,64 +4,64 @@
 ## List Of Methods
 
 * #### Customers
-	* {Create a customer}(#create-customer).
-	* {List all service customers}(#list-all-service-customers).
-	* {Get a customer detail}(#get-a-customer-detail).
-	* {List the customers based on external identification}(#list-the-customers-based-on-external-identification).
-	* {Modify an existing customer}(#modify-an-existing-customer).
-	* {Delete a customer}(#delete-a-customer).
+	* [Create a customer](#create-customer).
+	* [List all service customers](#list-all-service-customers).
+	* [Get a customer detail](#get-a-customer-detail).
+	* [List the customers based on external identification](#list-the-customers-based-on-external-identification).
+	* [Modify an existing customer](#modify-an-existing-customer).
+	* [Delete a customer](#delete-a-customer).
 
 * #### Payment methods
-	* {Create bank account payment method}(#create-bank-account-payment-method).
-	* {Create credit card payment method}(#create-credit-card-payment-method).
-	* {Create Interac payment method}(#create-Interac-payment-method).
-	* {Change Interac Payment Method Question and Answer}(#change-Interac-Payment-Method-Question-and-Answer)
-	* {Get a specific payment method}(#get-a-specific-payment-method).
-	* {List payment methods}(#list-payment-methods)
-	* {Change the default payment method of a customer}(#change-the-default-payment-method-of-a-customer).
-	* {Delete payment method}(#delete-payment-method).
+	* [Create bank account payment method](#create-bank-account-payment-method).
+	* [Create credit card payment method](#create-credit-card-payment-method).
+	* [Create Interac payment method](#create-Interac-payment-method).
+	* [Change Interac Payment Method Question and Answer](#change-Interac-Payment-Method-Question-and-Answer)
+	* [Get a specific payment method](#get-a-specific-payment-method).
+	* [List payment methods](#list-payment-methods)
+	* [Change the default payment method of a customer](#change-the-default-payment-method-of-a-customer).
+	* [Delete payment method](#delete-payment-method).
 	
 * #### Payments / Transfers
-	* {Create Bill}(#create-bill).
-	* {List Bill}(#list-bill).
-	* {Get Bill}(#get-bill).
-	* {Delete Bill}(#delete-bill).
-	* {Create Payment}(#create-payment).
-	* {Create Direct Deposit}(#create-direct-deposit).
-	* {Create Interac Transfer}(#create-interac-transfer).
-	* {Create from ACP File}(#create-from-acp-file).
-	* {Create Free Operation}(#create-free-operation).
-	* {Delete Transfer}(#delete-transfer).
-	* {Revert Transfer}(#revert-transfer).
-	* {List Recuring}(#list-recuring).
-	* {Delete Recuring process}(#delete-recuring-process).
-	* {Reporting of Operation}(#reporting-of-operation)
-	* {List Executed Operations}(#list-executed-operations).
-	* {List Transfers}(#list-transfers).
-	* {List Transfers Fast}(#list-transfers-fast)
-	* {List transfers For Bill Fast}(#list-transfers-for-bill-fast).
+	* [Create Bill](#create-bill).
+	* [List Bill](#list-bill).
+	* [Get Bill](#get-bill).
+	* [Delete Bill](#delete-bill).
+	* [Create Payment](#create-payment).
+	* [Create Direct Deposit](#create-direct-deposit).
+	* [Create Interac Transfer](#create-interac-transfer).
+	* [Create from ACP File](#create-from-acp-file).
+	* [Create Free Operation](#create-free-operation).
+	* [Delete Transfer](#delete-transfer).
+	* [Revert Transfer](#revert-transfer).
+	* [List Recuring](#list-recuring).
+	* [Delete Recuring process](#delete-recuring-process).
+	* [Reporting of Operation](#reporting-of-operation)
+	* [List Executed Operations](#list-executed-operations).
+	* [List Transfers](#list-transfers).
+	* [List Transfers Fast](#list-transfers-fast)
+	* [List transfers For Bill Fast](#list-transfers-for-bill-fast).
 
 * #### Merchants
-	* {Merchant basic information object}(#merchant-basic-information-object).
-	* {Create new merchant}(#create-new-merchant).
-	* {Get merchant info }(#get-merchant-info)
-	* {Update merchant}(#update-merchant).
-	* {Delete merchant}(#delete-merchant).
-	* {Update merchant basic info}(#update-merchant-basic-info).
-	* {Update merchant account info}(#update-Merchant-Account-Info).
+	* [Merchant basic information object](#merchant-basic-information-object).
+	* [Create new merchant](#create-new-merchant).
+	* [Get merchant info ](#get-merchant-info)
+	* [Update merchant](#update-merchant).
+	* [Delete merchant](#delete-merchant).
+	* [Update merchant basic info](#update-merchant-basic-info).
+	* [Update merchant account info](#update-Merchant-Account-Info).
 
 * #### Whitelabeling (UI Looks)
-	* {Set WhiteLabeling}(#set-whiteLabeling)
-	* {Delete WhiteLabeling}(#delete-whiteLabeling)
-	* {Get WhiteLabeling}(#get-whiteLabeling)
-	* {Update WhiteLabeling Values}(#update-whiteLabeling-alues)
-	* {Get List of WhiteLabeling (related Services/Merchants)}(#get-list-of-whiteLabeling)
+	* [Set WhiteLabeling](#set-whiteLabeling)
+	* [Delete WhiteLabeling](#delete-whiteLabeling)
+	* [Get WhiteLabeling](#get-whiteLabeling)
+	* [Update WhiteLabeling Values](#update-whiteLabeling-alues)
+	* [Get List of WhiteLabeling (related Services/Merchants)](#get-list-of-whiteLabeling)
 	
 * #### Clients
-	* {sub-client}(#sub-client)
-	* {Set client default service fee settings}(#set-client-default-service-fee-settings)
-	* {Set client settings}(#set-client-settings)
-	* {Get client settings}(#get-client-settings)
+	* [sub-client](#sub-client)
+	* [Set client default service fee settings](#set-client-default-service-fee-settings)
+	* [Set client settings](#set-client-settings)
+	* [Get client settings](#get-client-settings)
   
 ## Usage
 
