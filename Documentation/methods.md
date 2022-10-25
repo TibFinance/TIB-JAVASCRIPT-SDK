@@ -78,26 +78,42 @@ var customerExternalId = ""; //
 var language = 1; // language Index From the language Enum
 var customerDescription = ""; // customer description.
 
-serverCaller.createCustomer(customerName, customerExternalId, language, customerDescription, serviceId, sessionToken).then().catch();
+serverCaller.createCustomer(customerName, customerExternalId, language, customerDescription, serviceId, sessionToken)
+.then(function() {
+// logic after Call Success .
+})
+.catch(reject);
         
 ```
 
 ### List all service customers
 ```
 var serviceId = "";  // the service to get the list from 
-serverCaller.listCustomers(serviceId, sessionToken).then().catch();
+serverCaller.listCustomers(serviceId, sessionToken)
+.then(function() {
+// logic after Call Success .
+})
+.catch(reject);
 ```
 
 ### Get a customer detail
 ```
 var customerId = "bf199033-53a1-48cd-8f17-04254d026ecd";
-serverCaller.getCustomer(customerId,sessionToken).then().catch();
+serverCaller.getCustomer(customerId,sessionToken)
+.then(function() {
+// logic after Call Success .
+})
+.catch(reject);
 ```
 
 ### List the customers based on external identification
 ``` 
 var customerExternalId = "C132-344"; // customer ExternalId
-serverCaller.getCustomersByExternalId(customerExternalId, sessionToken).then().catch();     
+serverCaller.getCustomersByExternalId(customerExternalId, sessionToken)
+.then(function() {
+// logic after Call Success .
+})
+.catch(reject);     
 ```
 
 ### Modify an existing customer
@@ -108,7 +124,11 @@ var customerExternalId = "new Value";
 var language = 1;
 var customerDescription = "new Value";
 
-serverCaller.saveCustomer(customerId, customerName, customerExternalId, language, customerDescription, ssessionToken);
+serverCaller.saveCustomer(customerId, customerName, customerExternalId, language, customerDescription, ssessionToken)
+.then(function() {
+// logic after Call Success .
+})
+.catch(reject);
         
 ```
 
@@ -116,7 +136,11 @@ serverCaller.saveCustomer(customerId, customerName, customerExternalId, language
 ```
 var customerId = "dc09fbbf-4067-4b21-af09-81707fd227a6"; 
 
-serverCaller.deleteCustomer(customerId, sessionToken);
+serverCaller.deleteCustomer(customerId, sessionToken)
+.then(function() {
+// logic after Call Success .
+})
+.catch(reject);
 ```
 
 ## Payment methods
@@ -127,9 +151,17 @@ serverCaller.deleteCustomer(customerId, sessionToken);
 var customerId = "bf199033-53a1-48cd-8f17-04254d026ecd";
 var isCustomerAutomaticPaymentMethod = true;
 var type = "Account";
-var account = serverCaller.createBankAccountObject("Customer 200", "Personal bank account", "003", "12345", "98765432");
+var account = serverCaller.createBankAccountObject("Customer 200", "Personal bank account", "003", "12345", "98765432")
+.then(function() {
+// logic after Call Success .
+})
+.catch(reject);
 
-serverCaller.createDirectAccountPaymentMethod(customerId, isCustomerAutomaticPaymentMethod, account, sessionToken);
+serverCaller.createDirectAccountPaymentMethod(customerId, isCustomerAutomaticPaymentMethod, account, sessionToken)
+.then(function() {
+// logic after Call Success .
+})
+.catch(reject);
 
 ```
 
@@ -138,9 +170,17 @@ serverCaller.createDirectAccountPaymentMethod(customerId, isCustomerAutomaticPay
 var customerId = "bf199033-53a1-48cd-8f17-04254d026ecd";
 var isCustomerAutomaticPaymentMethod = true;
 var type = "CreditCard";
-var creditCard = serverCaller.createCreditCardObject("4242424242424242", "123", "12", "24", "Test Card", "Johny Cardholder", "1 Testing road", "Testcity", "10", "1", "H1H1H1"); 
+var creditCard = serverCaller.createCreditCardObject("4242424242424242", "123", "12", "24", "Test Card", "Johny Cardholder", "1 Testing road", "Testcity", "10", "1", "H1H1H1")
+.then(function() {
+// logic after Call Success .
+})
+.catch(reject); 
 
-serverCaller.createDirectAccountPaymentMethod(customerId, isCustomerAutomaticPaymentMethod, creditCard, sessionToken);
+serverCaller.createDirectAccountPaymentMethod(customerId, isCustomerAutomaticPaymentMethod, creditCard, sessionToken)
+.then(function() {
+// logic after Call Success .
+})
+.catch(reject);
         
 ```
 
@@ -154,7 +194,11 @@ var type = "Interac";
 
 var InteracInformation = serverCaller.createInteracObject("Interac Test", "Kelly interac", "kinterac@dummytest.com", "8881234567","Remember the fruit", "8881234567") 
 
-serverCaller.createDirectAccountPaymentMethod(customerId, isCustomerAutomaticPaymentMethod, InteracInformation, sessionToken);
+serverCaller.createDirectAccountPaymentMethod(customerId, isCustomerAutomaticPaymentMethod, InteracInformation, sessionToken)
+.then(function() {
+// logic after Call Success .
+})
+.catch(reject);
 ```
 
 ### Change Interac Payment Method Question and Answer
@@ -162,7 +206,11 @@ serverCaller.createDirectAccountPaymentMethod(customerId, isCustomerAutomaticPay
 var id = "";
 var question = "new Question";
 var answer = "new answer ";
-serverCaller.ChangeInteracPaymentMethodQuestionAndAnswer(id, question, answer, sessionToken);
+serverCaller.ChangeInteracPaymentMethodQuestionAndAnswer(id, question, answer, sessionToken)
+.then(function() {
+// logic after Call Success .
+})
+.catch(reject);
            
 ```
 
@@ -170,13 +218,21 @@ serverCaller.ChangeInteracPaymentMethodQuestionAndAnswer(id, question, answer, s
 ```
 var paymentId = "5397c23a-e938-47c5-94f8-c2d821959ec5";
 
-serverCaller.getPaymentMethod(paymentId, sessionToken);
+serverCaller.getPaymentMethod(paymentId, sessionToken)
+.then(function() {
+// logic after Call Success .
+})
+.catch(reject);
 ```
 
 ### List payment methods
 ```
 var customerId = "bf199033-53a1-48cd-8f17-04254d026ecd";
-serverCaller.listPaymentMethods(customerId, sessionToken);
+serverCaller.listPaymentMethods(customerId, sessionToken)
+.then(function() {
+// logic after Call Success .
+})
+.catch(reject);
 ```
 
 ### Change the default payment method of a customer
@@ -185,14 +241,22 @@ var paymentMethodId = "5397c23a-e938-47c5-94f8-c2d821959ec5";
 var customerId = "bf199033-53a1-48cd-8f17-04254d026ecd";
 
 
-serverCaller.setDefaultPaymentMethod(paymentMethodId, customerId,sessionToken);
+serverCaller.setDefaultPaymentMethod(paymentMethodId, customerId,sessionToken)
+.then(function() {
+// logic after Call Success .
+})
+.catch(reject);
 ```
 
 ### Delete payment method
 ```
 var paymentMethodId = "5397c23a-e938-47c5-94f8-c2d821959ec5";
 
-serverCaller.deletePaymentMethod(paymentMethodId,sessionToken);
+serverCaller.deletePaymentMethod(paymentMethodId,sessionToken)
+.then(function() {
+// logic after Call Success .
+})
+.catch(reject);
 ```
 
 ## Bills / Payments / Transfers
@@ -213,7 +277,11 @@ var billData = {
 	RelatedCustomerId: "bf199033-53a1-48cd-8f17-04254d026ecd"
 };
 
-serverCaller.createBill(breakIfMerchantNeverBeenAuthorized, billData,sessionToken);
+serverCaller.createBill(breakIfMerchantNeverBeenAuthorized, billData,sessionToken)
+.then(function() {
+// logic after Call Success .
+})
+.catch(reject);
 ```
 
 ### List Bills
@@ -222,7 +290,11 @@ serverCaller.createBill(breakIfMerchantNeverBeenAuthorized, billData,sessionToke
 var fromDateTime = "2021-02-16T13:45:00.000Z";
 var toDateTime = "2021-05-16T13:45:00.000Z";
 
-serverCaller.listBills(merchantId, fromDateTime, toDateTime,sessionToken);
+serverCaller.listBills(merchantId, fromDateTime, toDateTime,sessionToken)
+.then(function() {
+// logic after Call Success .
+})
+.catch(reject);
 
 ```
 
@@ -231,14 +303,22 @@ serverCaller.listBills(merchantId, fromDateTime, toDateTime,sessionToken);
 ```
 var billId = "b2678654-9eec-4a6e-aeaa-8d0893b2a986";
 
-serverCaller.getBill(billId,sessionToken);
+serverCaller.getBill(billId,sessionToken)
+.then(function() {
+// logic after Call Success .
+})
+.catch(reject);
 ```
 
 ### Delete Bill
 ```
 var billId = "0ec1520e-7f5a-4367-8c7d-0d9684f689fe";
 
-serverCaller.deleteBill(billId,sessionToken);
+serverCaller.deleteBill(billId,sessionToken)
+.then(function() {
+// logic after Call Success .
+})
+.catch(reject);
 ```
 *Keep in mind that you'll have to implement your own verification logic to avoid deleting a bill by mistake*
 
@@ -253,7 +333,11 @@ var paymentInfo = {
 	DueDate: "2021-05-10T16:10:19.000Z",
 	PaymentAmount: 1.22};
 
-serverCaller.createPayement(billId, setPaymentCustomerFromBill, paymentInfo,sessionToken,sessionToken);
+serverCaller.createPayement(billId, setPaymentCustomerFromBill, paymentInfo,sessionToken,sessionToken)
+.then(function() {
+// logic after Call Success .
+})
+.catch(reject);
 ```
 
 ### Create Direct Deposit (this Methods is obsolete, Use CreateFreeOperation) 
@@ -272,7 +356,11 @@ var language = 1;
 var amount = 1.22;
 var referenceNumber = "C12343-324";
 
-serverCaller.createDirectDeposit(originMerchantId, destinationAccount, depositDueDate, currency, language, amount, referenceNumber,sessionToken);
+serverCaller.createDirectDeposit(originMerchantId, destinationAccount, depositDueDate, currency, language, amount, referenceNumber,sessionToken)
+.then(function() {
+// logic after Call Success .
+})
+.catch(reject);
 ```
 
 ### Create Interac Transfer
@@ -286,12 +374,20 @@ var language = 1;
 var amount = 1.22;
 var referenceNumber = "C12343-324";
 
-serverCaller.createDirectDeposit(originMerchantId, interacInformation, depositDueDate, currency, language, amount, referenceNumber,sessionToken);
+serverCaller.createDirectDeposit(originMerchantId, interacInformation, depositDueDate, currency, language, amount, referenceNumber,sessionToken)
+.then(function() {
+// logic after Call Success .
+})
+.catch(reject);
 ```
 ### Create from ACP file
 ```
 var rawAcpFileContent = "";
-serverCaller.createTransactionFromRaw(merchantId, rawAcpFileContent, sessionToken);
+serverCaller.createTransactionFromRaw(merchantId, rawAcpFileContent, sessionToken)
+.then(function() {
+// logic after Call Success .
+})
+.catch(reject);
 ```
 ### Create Free Operation
 ```
@@ -304,30 +400,50 @@ var transactionDueDate = "2021-05-12T16:10:19.000Z";
 var groupId = "HT123123";
 var transferFrequency = 0;
 
-serverCaller.createFreeOperation(merchantId, paymentMethodId, transferType, referenceNumber, amount, language, transactionDueDate, groupId, transferFrequency,sessionToken);
+serverCaller.createFreeOperation(merchantId, paymentMethodId, transferType, referenceNumber, amount, language, transactionDueDate, groupId, transferFrequency,sessionToken)
+.then(function() {
+// logic after Call Success .
+})
+.catch(reject);
 ```
 ### Delete Transfer
 ```
 var paymentId = "03c415fd-5f64-4678-a388-39facbb2bee1";
 
-serverCaller.deletePayment(paymentId,sessionToken);
+serverCaller.deletePayment(paymentId,sessionToken)
+.then(function() {
+// logic after Call Success .
+})
+.catch(reject);
 ```
 ### Revert Transfer
 ```
 var transferId = "c9a521d5-60a1-4398-8f6c-7462797d584c";
 
-serverCaller.revertTransfer(transferId,sessionToken);
+serverCaller.revertTransfer(transferId,sessionToken)
+.then(function() {
+// logic after Call Success .
+})
+.catch(reject);
 ```
 ### List Recuring
 ```
-serverCaller.getRecuringTransfers(serviceId,sessionToken);
+serverCaller.getRecuringTransfers(serviceId,sessionToken)
+.then(function() {
+// logic after Call Success .
+})
+.catch(reject);
 ```
 
 ### Delete Recuring process
 ```
 var recuringTransferId = "89d720f2-78ae-4816-8fda-0099aa867c38";
 
-serverCaller.deleteRecuringTransfer(recuringTransferId,sessionToken);
+serverCaller.deleteRecuringTransfer(recuringTransferId,sessionToken)
+.then(function() {
+// logic after Call Success .
+})
+.catch(reject);
 ```
 
 ## Reporting of Operation
@@ -342,13 +458,25 @@ var onlyWithErrors = "";
 var merchantId = "";
 var dateType = "";
 
-serverCaller.listExecutedOperations(fromDate, toDate, transferType, transferGroupId, onlyWithErrors, merchantId, dateType, sessionToken);
+serverCaller.listExecutedOperations(fromDate, toDate, transferType, transferGroupId, onlyWithErrors, merchantId, dateType, sessionToken)
+.then(function() {
+// logic after Call Success .
+})
+.catch(reject);
 
 ```
 ### List Transfers
 ```
- 	var from = new DateTime(""); 
-	var to = new DateTime(""); 
+ 	var from = new DateTime("")
+.then(function() {
+// logic after Call Success .
+})
+.catch(reject); 
+	var to = new DateTime("")
+.then(function() {
+// logic after Call Success .
+})
+.catch(reject); 
 	var exGroupId = ""; 
 	var lvlFilterId = ""; 
 	var markResolvedOnly = false;
@@ -356,20 +484,36 @@ serverCaller.listExecutedOperations(fromDate, toDate, transferType, transferGrou
 	var transferType = 1 ;// this Ranges from 1 to 7
 	var transferGroupId  = "" ; 
 	var onlywithErrors = false;
-	serverCaller.ListTransfers(sessionToken, from, to, exGroupId, lvlFilterId, markResolvedOnly,paymentFilterLvl, transferType, transferGroupId, onlywithErrors);
+	serverCaller.ListTransfers(sessionToken, from, to, exGroupId, lvlFilterId, markResolvedOnly,paymentFilterLvl, transferType, transferGroupId, onlywithErrors)
+.then(function() {
+// logic after Call Success .
+})
+.catch(reject);
 ```
 
 ### List Transfers Fast
 ```
-	var from = new DateTime(""); 
-	var to = new DateTime(""); 
+	var from = new DateTime("")
+.then(function() {
+// logic after Call Success .
+})
+.catch(reject); 
+	var to = new DateTime("")
+.then(function() {
+// logic after Call Success .
+})
+.catch(reject); 
 	var exGroupId = ""; 
 	var merchantId = ""; 
 	var markResolvedOnly = false;
 	var transferType = 1 ;// this Ranges from 1 to 6 and is different From the Enum used in ListTransfers (List Transfers Uses TransferTypeFlags and This Uses TransferTypeEnum.)
 	var transferGroupId  = "" ; 
 	var onlywithErrors = false;
-	serverCaller.ListTransfersFast(sessionToken, merchantId, from, to, exGroupId, markResolvedOnly, transferType, transferGroupId, onlywithErrors);
+	serverCaller.ListTransfersFast(sessionToken, merchantId, from, to, exGroupId, markResolvedOnly, transferType, transferGroupId, onlywithErrors)
+.then(function() {
+// logic after Call Success .
+})
+.catch(reject);
 
 ```
 
@@ -377,7 +521,11 @@ serverCaller.listExecutedOperations(fromDate, toDate, transferType, transferGrou
 ```
 	var merchantId = ""; 
 	var bill = ""; 
-	serverCaller.ListTransfersForBillFast(sessionToken, merchantId, billId);
+	serverCaller.ListTransfersForBillFast(sessionToken, merchantId, billId)
+.then(function() {
+// logic after Call Success .
+})
+.catch(reject);
 ```
 
 
@@ -412,12 +560,20 @@ var merchantInfo = {
 		Owners: ""
 	},
 }; 
-serverCaller.CreateMerchant(merchantInfo, sessionToken, serviceId);
+serverCaller.CreateMerchant(merchantInfo, sessionToken, serviceId)
+.then(function() {
+// logic after Call Success .
+})
+.catch(reject);
 ```
 ### Get merchant info
 ``` 
 var erchantId = ""; 
-serverCaller.GetMerchant(merchantId, sessionToken);
+serverCaller.GetMerchant(merchantId, sessionToken)
+.then(function() {
+// logic after Call Success .
+})
+.catch(reject);
 ```
 ### Update merchant
 ``` 
@@ -453,12 +609,20 @@ var merchantInfo = {
 	},
 }; 
 
-serverCaller.SaveMerchant(merchantId, merchantInfo, sessionToken);
+serverCaller.SaveMerchant(merchantId, merchantInfo, sessionToken)
+.then(function() {
+// logic after Call Success .
+})
+.catch(reject);
 ```
 ### Delete merchant
 ```
 var merchantId  = ""
-serverCaller.deleteMerchant(merchantId, sessionToken);
+serverCaller.deleteMerchant(merchantId, sessionToken)
+.then(function() {
+// logic after Call Success .
+})
+.catch(reject);
 ```
 ### Update merchant basic info 
 ```
@@ -482,7 +646,11 @@ var merchantInfo = {
 	},
 	FavoriteProvider: ""
 };
-sserverCaller.SaveMerchantBasicInfo(merchantId, merchantInfo, sessionToken);
+sserverCaller.SaveMerchantBasicInfo(merchantId, merchantInfo, sessionToken)
+.then(function() {
+// logic after Call Success .
+})
+.catch(reject);
 ```
 ### Update merchant account info
 
@@ -502,7 +670,11 @@ var merchantInfo = {
 	},
 };
 
-serverCaller.SaveMerchantAccountInfo(merchantId, merchantInfo, sessionToken);
+serverCaller.SaveMerchantAccountInfo(merchantId, merchantInfo, sessionToken)
+.then(function() {
+// logic after Call Success .
+})
+.catch(reject);
 ```
 
 ## Whitelabeling (UI Looks)
@@ -563,21 +735,33 @@ var whiteLabelingData = {
 		CssValue: "red"
 	},
 };
-serverCaller.SetwhiteLabeling(id, level, whiteLabelingData,sessionToken);
+serverCaller.SetwhiteLabeling(id, level, whiteLabelingData,sessionToken)
+.then(function() {
+// logic after Call Success .
+})
+.catch(reject);
 ```
 ### Delete WhiteLabeling
 
 ```
 var id = clientId;  // entity Id ; 
 var level = 3; // entity level; 
-serverCaller.DeleteWhiteLabelingData(id, level,sessionToken);
+serverCaller.DeleteWhiteLabelingData(id, level,sessionToken)
+.then(function() {
+// logic after Call Success .
+})
+.catch(reject);
 ```
 
 ### Get WhiteLabeling
 ```
 var id = clientId;  // entity Id ; 
 var level = 3; // entity level; 
-serverCaller.GetwhiteLabeling(id, level,sessionToken);
+serverCaller.GetwhiteLabeling(id, level,sessionToken)
+.then(function() {
+// logic after Call Success .
+})
+.catch(reject);
 ```
 
 ### Update WhiteLabeling Values
@@ -602,12 +786,20 @@ var updateWhiteLabelingData = {
 		CssValue: "...."
 	},
 };
-serverCaller.UpdateWhiteLabelingData(id, level, updateWhiteLabelingData,sessionToken);
+serverCaller.UpdateWhiteLabelingData(id, level, updateWhiteLabelingData,sessionToken)
+.then(function() {
+// logic after Call Success .
+})
+.catch(reject);
 ```
 
 ### Get List of WhiteLabeling
 ```
-serverCaller.GetListWhiteLabelingData(sessionToken);
+serverCaller.GetListWhiteLabelingData(sessionToken)
+.then(function() {
+// logic after Call Success .
+})
+.catch(reject);
 ```
 
 ## Clients
@@ -615,7 +807,11 @@ serverCaller.GetListWhiteLabelingData(sessionToken);
 ```
 var name = "new sub Client";
 var language = 2;
-serverCaller.CreateSubClient(name, language,sessionToken);
+serverCaller.CreateSubClient(name, language,sessionToken)
+.then(function() {
+// logic after Call Success .
+})
+.catch(reject);
 ```
 ### Set client default service fee settings
 ```
@@ -624,7 +820,11 @@ var ServiceFeeSettings = {
 	ConvenientFeeDebitAbsoluteFee: 0,
 	ConvenientFeeCreditAbsoluteFee: 0,
 };
-serverCaller.SetClientDefaultServiceFeeSettings(clientId, ServiceFeeSettings,sessionToken);
+serverCaller.SetClientDefaultServiceFeeSettings(clientId, ServiceFeeSettings,sessionToken)
+.then(function() {
+// logic after Call Success .
+})
+.catch(reject);
 ```
 ### Set client settings
 ```
@@ -633,11 +833,19 @@ var clientSettings = {
 	CollectionLimitDaily: 93849,
 	DepositLimitDaily: 2994949
 };
-serverCaller.SetClientSettings(clientId, clientSettings,sessionToken);
+serverCaller.SetClientSettings(clientId, clientSettings,sessionToken)
+.then(function() {
+// logic after Call Success .
+})
+.catch(reject);
 ```
 ### Get client settings
 
 ```
 var clientId = clientId;
-serverCaller.GetClientSettings(clientId,sessionToken);
+serverCaller.GetClientSettings(clientId,sessionToken)
+.then(function() {
+// logic after Call Success .
+})
+.catch(reject);
 ```
