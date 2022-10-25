@@ -212,7 +212,7 @@ class ServerCaller {
 
     //Payments / Transfers methodes :
 
-     createCreditCardObject(pan, cvd, expirationMonth, expirationYear, creditCardDescription, cardOwner, streetAddress, addressCity, provinceStateId, countryId, postalZipCode, sessionToken) {
+     createCreditCardObject(pan, cvd, expirationMonth, expirationYear, creditCardDescription, cardOwner, streetAddress, addressCity, provinceStateId, countryId, postalZipCode) {
         return {
             Pan: pan,
             Cvd: cvd,
@@ -245,10 +245,10 @@ class ServerCaller {
         return CryptoCaller.performCall(methodName, data)
     }
 
-     createBankAccountObject(owner, accountName, bankNumber, institutionNumber, accountNumber, sessionToken) {
+     createBankAccountObject(owner, accountName, bankNumber, institutionNumber, accountNumber) {
         return {
             Owner: owner,
-            AccountName: bankNumber,
+            AccountName: accountName,
             BankNumber: bankNumber,
             InstitutionNumber: institutionNumber,
             AccountNumber: accountNumber
@@ -270,7 +270,7 @@ class ServerCaller {
         return CryptoCaller.performCall(methodName, data)
     }
 
-     createInteracObject(description, owner, targetEmailAddress, targetMobilePhoneNumber, interacQuestion, interacAnswer, sessionToken) {
+     createInteracObject(description, owner, targetEmailAddress, targetMobilePhoneNumber, interacQuestion, interacAnswer) {
         return {
             Description: description,
             Owner: owner,
