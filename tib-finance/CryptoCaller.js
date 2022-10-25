@@ -19,45 +19,6 @@ class CryptoCaller{
       CryptoCaller.serverURL = serverURL;
     }
 
-
-    // to get removed
-    static createSession()
-    {
-      CryptoCaller.sessionId = CryptoCaller.getCookie("sessionId");
-
-      if(CryptoCaller.sessionId === null || CryptoCaller.sessionId == "")
-      {
-        var methodName = "/data/CreateSession";
-        var loginInfo = {
-          ClientId: CryptoCaller.clientId,
-          Username: CryptoCaller.userName,
-          Password: CryptoCaller.password
-        };
-        
-        return new Promise(function (resolve, reject) {
-          CryptoCaller.performCall(methodName, loginInfo)
-            .then(function (data) {
-              if (data.HasError) {
-                reject(data.Messages);
-              }
-              else {
-                resolve(data);
-                CryptoCaller.setCookie("sessionId", data.SessionId, 1);
-                CryptoCaller.sessionId = data.SessionId;
-                return CryptoCaller.sessionId;
-              }
-            })
-            .catch(function (error) {
-              reject(error.responseText);
-            });
-        });
-      }else{
-        return new Promise(function (resolve, reject) {
-            resolve(CryptoCaller.SessionId);
-        });
-      }
-    }
-
     /**
      * Obtenir les clé public de serveur TIB FINANCE
      * 
