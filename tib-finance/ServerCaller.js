@@ -684,7 +684,7 @@ class ServerCaller {
     }
 
      login() {
-        var smethodName = "/Data/Login";
+        var methodName = "/Data/Login";
 
         var data = {
             ClientIdUsername: clientId,
