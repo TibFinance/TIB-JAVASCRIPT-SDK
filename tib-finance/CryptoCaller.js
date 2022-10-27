@@ -52,7 +52,8 @@ class CryptoCaller{
         rsaProvider: new System.Security.Cryptography.RSACryptoServiceProvider(512), //Create a local provider to create a new asymetric key pair to allow the server to crypte it's symetric key'
         symetricKeyClientPart: CryptoCaller.randomArray(16, 255)  //Half of the symetric key (CLIENT).
       };
-
+      console.log("----------------------"); 
+      console.log(returnData)
       //Create the rsa provider from the server side received key
       remotePublicRsaProvider = new System.Security.Cryptography.RSACryptoServiceProvider();
       remotePublicRsaProvider.FromXmlString(returnData.serverPublicKey);
