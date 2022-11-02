@@ -7,7 +7,7 @@ var clientId = "4671a4c9-4367-4934-bb23-a8886cebd028";
 var userName = "sdkdev";
 var password = "Test123!"
 var merchantId = "EA34F2C6-36B2-4513-973E-A2C91E7985D3";
-var sessionToken = "482f87db-9fbe-4e33-b8a1-4ebe4982d6c9";
+var sessionToken = "e568da2d-831a-4b4c-a63a-c5037a99eb45";
 
 var serverCaller = new ServerCaller() 
 $(document).ready(function () {
@@ -31,7 +31,7 @@ $(document).on("click", "#createSession", function () {
     new Promise(function (resolve, reject) {
         serverCaller.createSession(clientId, userName, password)
             .then(function (result) {
-                console.log(result)
+                
                 var _html = "<h4>Session Token<small>(Passed With Every Call)</small> :<br/> </h4>" + result.SessionId;
                 // Here you cann use Your own logic to store the sessionToken since it will be needed with every server Call . 
 
@@ -57,7 +57,7 @@ $(document).on("click", "#addCustomer", function () {
     new Promise(function (resolve, reject) {
         serverCaller.createCustomer(name, externalId, language, description, serviceId, sessionToken)
             .then(function (result) {
-                console.log(result)
+                
                 var _html = "<h4>Customer Id  :<br/> </h4>" + result.CustomerId;
                 // Here you cann use Your own logic to store the sessionToken since it will be needed with every server Call . 
 
@@ -77,7 +77,7 @@ $(document).on("click", "#listCustomer", function () {
     new Promise(function (resolve, reject) {
         serverCaller.listCustomers(serviceId, sessionToken)
             .then(function (result) {
-                console.log(result)
+                
                 var _html = "<table class='table'>";
                 _html += "<thead><tr><th>CustomerId</th><th>CustomerName</th><th>CustomerExternalId</th><th>Language</th><th>Customer Description</th></tr></thead>";
                 _html += "<tbody>";
@@ -143,7 +143,7 @@ $(document).on("click", "#getCustomerByExternalId", function () {
     new Promise(function (resolve, reject) {
         serverCaller.getCustomersByExternalId(customerExternalId, sessionToken)
             .then(function (result) {
-                console.log(result)
+                
                 var _html = "<table class='table'>";
                 _html += "<thead><tr><th>CustomerId</th><th>CustomerName</th><th>CustomerExternalId</th><th>Language</th><th>Customer Description</th></tr></thead>";
                 _html += "<tbody>";
@@ -379,7 +379,7 @@ $(document).on("click", "#listWhiteLabeling", function () {
         serverCaller.getListWhiteLabelingData(clientId, 3, sessionToken)
             .then(function (result) {
                 var _html = "";
-                console.log(result)
+                
                 hideProgress();
 
                 $("#result").html(_html);
@@ -431,7 +431,7 @@ $(document).on("click", "#listBills", function () {
     new Promise(function (resolve, reject) {
         serverCaller.listBills(merchantId, serviceId, fromDateTime, toDateTime, sessionToken)
             .then(function (result) {
-                console.log(result)
+                
                 var _html = "<table class='table'>";
                 _html += "<thead><tr><th>Bill Id</th><th>Created Date</th><th>Merchant Id</th><th>Bill Title</th><th>Bill Description</th></tr></thead>";
                 _html += "<tbody>";
@@ -790,7 +790,7 @@ $(document).on("click", "#listExecutedOperations", function () {
         serverCaller.listExecutedOperations(fromDate, toDate, transferType, transferGroupId,
             onlyWithErrors, merchantId, dateType, sessionToken)
             .then(function (result) {
-                console.log(result)
+                
 
                 var _html = "<table class='table'>";
                 _html += "<thead><tr><th>Recuring Transfer Id</th><th>Recuring Mode</th><th>Created Date</th><th>Related Merchant Id</th><th>Related Customer Id</th><th>Amount</th></tr></thead>";
@@ -826,7 +826,7 @@ $(document).on("click", "#getWhiteLabeling", function () {
     new Promise(function (resolve, reject) {
         serverCaller.getWhiteLabelingData(clientId, 3, sessionToken)
             .then(function (result) {
-                console.log(result)
+                
 
                 hideProgress();
 
@@ -855,7 +855,7 @@ $(document).on("click", "#setWhiteLabeling", function () {
     new Promise(function (resolve, reject) {
         serverCaller.setwhiteLabeling(clientId, 3, whiteLabelingData, sessionToken)
             .then(function (result) {
-                console.log(result)
+                
 
                 hideProgress();
 
@@ -871,7 +871,7 @@ $(document).on("click", "#listServices", function () {
     new Promise(function (resolve, reject) {
         serverCaller.listServices(merchantId, sessionToken)
             .then(function (result) {
-                console.log(result)
+                
 
                 hideProgress();
 
@@ -897,7 +897,7 @@ $(document).on("click", "#updateWhiteLabeling", function () {
     new Promise(function (resolve, reject) {
         serverCaller.updateWhiteLabelingData(clientId, 3, whiteLabelingData, sessionToken)
             .then(function (result) {
-                console.log(result)
+                
 
                 hideProgress();
 
@@ -913,7 +913,7 @@ $(document).on("click", "#deleteWhiteLabeling", function () {
     new Promise(function (resolve, reject) {
         serverCaller.deleteWhiteLabeling(clientId, 3, sessionToken)
             .then(function (result) {
-                console.log(result)
+                
                 hideProgress();
             })
             .catch(reject);
@@ -941,7 +941,7 @@ $(document).on("click", "#createsubclient", function () {
     new Promise(function (resolve, reject) {
         serverCaller.createSubClient("new subClient", 2, sessionToken)
             .then(function (result) {
-                console.log(result)
+                
 
                 hideProgress();
 
@@ -958,7 +958,7 @@ $(document).on("click", "#getService", function () {
     new Promise(function (resolve, reject) {
         serverCaller.getService(serviceId, sessionToken)
             .then(function (result) {
-                console.log(result)
+                
 
                 hideProgress();
 
