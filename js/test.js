@@ -2,10 +2,10 @@
  * Exemple d'utilisation de API TIB FINANCE SDK
  */
 
-var serviceId = "038D7171-BF23-4F3C-9E78-CF6342624FC7";
-var clientId = "4671a4c9-4367-4934-bb23-a8886cebd028";
-var userName = "sdkdev";
-var password = "Test123!"
+var serviceId = "";
+var clientId = "";
+var userName = "";
+var password = ""
 var merchantId = "";
 var sessionToken = "";
 
