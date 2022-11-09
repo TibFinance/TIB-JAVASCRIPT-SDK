@@ -44,7 +44,6 @@ class CryptoCaller{
         localPublicKeyXml,
         mergedPublicKeyAndSymetricKeyArray,
         encryptedLocalPublicKeyAndClientSymetricKeyXml;
-
       returnData = {
         serverPublicKey: getPublicKeyResult.PublicKeyXmlString, //Public key content
         callNode: getPublicKeyResult.NodeAnswered, //For call affinity

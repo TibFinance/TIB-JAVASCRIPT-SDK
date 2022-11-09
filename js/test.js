@@ -6,18 +6,123 @@ var serviceId = "038D7171-BF23-4F3C-9E78-CF6342624FC7";
 var clientId = "4671a4c9-4367-4934-bb23-a8886cebd028";
 var userName = "sdkdev";
 var password = "Test123!"
-var merchantId = "EA34F2C6-36B2-4513-973E-A2C91E7985D3";
-var sessionToken = "e568da2d-831a-4b4c-a63a-c5037a99eb45";
+var merchantId = "";
+var sessionToken = "";
 
-var serverCaller = new ServerCaller() 
+var serverCaller = new ServerCaller()
+
+class HtmlHelper {
+    SetTableHeader = function (obj) {
+        let titles = "";
+        let keys = Object.keys(obj);
+        keys.forEach((elem) => {
+            titles += `<th>${elem}</th>`;
+        });
+        return `<table border='1' style='text-align: center;'><thead>${titles}</thead><tbody>`;
+    };
+    SetListInTable = function (dataValues) {
+        if (dataValues.length == 0) {
+            return "No Items ";
+        }
+        let table = this.SetTableHeader(dataValues[0]);
+        let values = "";
+        dataValues.forEach((elm) => {
+            values += "<tr>";
+            for (const [key, value] of Object.entries(elm)) {
+                if (typeof value === "object") {
+                    if (value === null) {
+                        values += `<td>${value}</td>`
+                    } else if (Array.isArray(value)) {
+                        values += `<td>${this.SetListInTable(value)}</td>`
+                    } else {
+                        values += `<td>${this.SetObjectInTable(value)}</td>`
+                    }
+                } else {
+                    values += `<td>${value}</td>`;
+                }
+            }
+            values += "</tr>";
+        });
+        table += values;
+        table += this.SetTableFooter();
+        return table;
+    };
+    SetObjectInTable = function (obj) {
+        let table = this.SetTableHeader(obj);
+        let values = "";
+        values += "<tr>";
+        for (const [key, value] of Object.entries(obj)) {
+            if (typeof value === "object") {
+                if (value === null) {
+                    values += `<td>${value}</td>`
+                } else if (Array.isArray(value)) {
+                    values += `<td>${this.SetListInTable(value)}</td>`
+                } else {
+                    values += `<td>${this.SetObjectInTable(value)}</td>`
+                }
+            } else {
+                values += `<td>${value}</td>`;
+            }
+
+        }
+        values += "</tr>";
+        table += values;
+        table += this.SetTableFooter();
+        return table;
+    };
+    SetTableFooter = function () {
+        return "</tbody></table>";
+    };
+}
+class ResultHandler {
+    constructor() {
+        this.htmlHelper = new HtmlHelper();
+        this.htmlContent = "";
+    }
+    Handle(resObj, exprectedResult, message = "") {
+        if (!resObj.HasError) {
+            if (Array.isArray(exprectedResult)) {
+                this.htmlContent = this.htmlHelper.SetListInTable(exprectedResult);
+            } else {
+                // in the case you want to show a custom message pass a make `expectedResult = null` resultHandler.Handle(result, null, "your Custom Message")
+                if (exprectedResult == null || exprectedResult == undefined) {
+                    this.htmlContent = message
+                } else {
+                    this.htmlContent = this.htmlHelper.SetObjectInTable(exprectedResult);
+                }
+            }
+            return true;
+        } else {
+            if (resObj.Messages.includes("Need an authenticated user to perform this action") || resObj.Messages.includes("Call received with no session token")) {
+                alert("need to authenticate to perform this call.")
+            } else {
+                alert(resObj.Messages)
+            }
+        }
+        return false;
+    }
+    getHtmlContent() {
+        return this.htmlContent;
+    }
+
+}
+
+let htmlHelper = new HtmlHelper();
+let resultHandler = new ResultHandler();
 $(document).ready(function () {
-    // innit the Url 
     serverCaller.initalize("http://sandboxportal.tib.finance");
-    
+
 });
 
 $(document).on("click", "#createSession", function () {
-    var data = { "Customer": { "CustomerName": "new Customer", "CustomerExternalId": "c123-59", "Language": "1", "CustomerDescription": "VIP Customer" } };
+    var data = {
+        "Customer": {
+            "CustomerName": "new Customer",
+            "CustomerExternalId": "c123-59",
+            "Language": "1",
+            "CustomerDescription": "VIP Customer"
+        }
+    };
 
     $("#result").html("");
     showProgress();
@@ -31,20 +136,18 @@ $(document).on("click", "#createSession", function () {
     new Promise(function (resolve, reject) {
         serverCaller.createSession(clientId, userName, password)
             .then(function (result) {
-                
-                var _html = "<h4>Session Token<small>(Passed With Every Call)</small> :<br/> </h4>" + result.SessionId;
-                // Here you cann use Your own logic to store the sessionToken since it will be needed with every server Call . 
-
+                if (resultHandler.Handle(result, null, "Session Created : " + result.SessionId)) {                    
+                    sessionToken = result.SessionId;
+                    $("#result").html(resultHandler.getHtmlContent())
+                }
                 hideProgress();
-                $("#result").html(_html);
             })
             .catch(reject);
     });
 });
 
 $(document).on("click", "#addCustomer", function () {
-    var data = { "Customer": { "CustomerName": "new Customer", "CustomerExternalId": "c123-59", "Language": "1", "CustomerDescription": "VIP Customer" } };
-
+   
     $("#result").html("");
     showProgress();
 
@@ -53,50 +156,32 @@ $(document).on("click", "#addCustomer", function () {
     var language = 1;
     var description = "Customer created from new JS SDK methods";
 
-
     new Promise(function (resolve, reject) {
         serverCaller.createCustomer(name, externalId, language, description, serviceId, sessionToken)
             .then(function (result) {
-                
-                var _html = "<h4>Customer Id  :<br/> </h4>" + result.CustomerId;
-                // Here you cann use Your own logic to store the sessionToken since it will be needed with every server Call . 
 
+                if (resultHandler.Handle(result, null, "<h4>Customer Id  :<br/> </h4>" + result.CustomerId)) {
+                    $("#result").html(resultHandler.getHtmlContent())
+                }
                 hideProgress();
-                $("#result").html(_html);
             })
             .catch(reject);
     });
 });
 
 $(document).on("click", "#listCustomer", function () {
+
     $("#result").html("");
     showProgress();
-
-
-
     new Promise(function (resolve, reject) {
         serverCaller.listCustomers(serviceId, sessionToken)
             .then(function (result) {
-                
-                var _html = "<table class='table'>";
-                _html += "<thead><tr><th>CustomerId</th><th>CustomerName</th><th>CustomerExternalId</th><th>Language</th><th>Customer Description</th></tr></thead>";
-                _html += "<tbody>";
-                for (var i = 0; i < result.Customers.length; i++) {
-                    _html += "<tr>";
-                    _html += "<td>" + JSON.stringify(result.Customers[i].CustomerId) + "</td>";
-                    _html += "<td>" + JSON.stringify(result.Customers[i].CustomerName) + "</td>";
-                    _html += "<td>" + JSON.stringify(result.Customers[i].CustomerExternalId) + "</td>";
-                    _html += "<td>" + JSON.stringify(result.Customers[i].Language) + "</td>";
-                    _html += "<td>" + JSON.stringify(result.Customers[i].CustomerDescription) + "</td>";
-                    _html += "</tr>";
+
+                if (resultHandler.Handle(result, result.Customers)) {
+                    $("#result").html(resultHandler.getHtmlContent());
                 }
-
-                _html += "</tbody>";
-                _html += "</table>";
-
                 hideProgress();
 
-                $("#result").html(_html);
             })
             .catch(reject);
     });
@@ -108,27 +193,14 @@ $(document).on("click", "#getOneCustomer", function () {
 
     var customerId = "3004c5df-9f6d-4ae6-b5ee-c30ef8b845ee";
 
-
     new Promise(function (resolve, reject) {
         serverCaller.getCustomer(customerId, sessionToken)
             .then(function (result) {
-                var _html = "<table class='table'>";
-                _html += "<thead><tr><th>CustomerId</th><th>CustomerName</th><th>CustomerExternalId</th><th>Language</th><th>Customer Description</th></tr></thead>";
-                _html += "<tbody>";
-                _html += "<tr>";
-                _html += "<td>" + JSON.stringify(result.Customer.CustomerId) + "</td>";
-                _html += "<td>" + JSON.stringify(result.Customer.CustomerName) + "</td>";
-                _html += "<td>" + JSON.stringify(result.Customer.CustomerExternalId) + "</td>";
-                _html += "<td>" + JSON.stringify(result.Customer.Language) + "</td>";
-                _html += "<td>" + JSON.stringify(result.Customer.CustomerDescription) + "</td>";
-                _html += "</tr>";
-
-                _html += "</tbody>";
-                _html += "</table>";
-
+                if (resultHandler.Handle(result, result.Customer)) {
+                    $("#result").html(resultHandler.getHtmlContent())
+                }
                 hideProgress();
 
-                $("#result").html(_html);
             })
             .catch(reject);
     });
@@ -143,27 +215,10 @@ $(document).on("click", "#getCustomerByExternalId", function () {
     new Promise(function (resolve, reject) {
         serverCaller.getCustomersByExternalId(customerExternalId, sessionToken)
             .then(function (result) {
-                
-                var _html = "<table class='table'>";
-                _html += "<thead><tr><th>CustomerId</th><th>CustomerName</th><th>CustomerExternalId</th><th>Language</th><th>Customer Description</th></tr></thead>";
-                _html += "<tbody>";
-                result.Customers.forEach(element => {
-                    _html += "<tr>";
-                    _html += "<td>" + JSON.stringify(element.CustomerId) + "</td>";
-                    _html += "<td>" + JSON.stringify(element.CustomerName) + "</td>";
-                    _html += "<td>" + JSON.stringify(element.CustomerExternalId) + "</td>";
-                    _html += "<td>" + JSON.stringify(element.Language) + "</td>";
-                    _html += "<td>" + JSON.stringify(element.CustomerDescription) + "</td>";
-                    _html += "</tr>";
-                });
-
-
-                _html += "</tbody>";
-                _html += "</table>";
-
+                if (resultHandler.Handle(result, result.Customers)) {
+                    $("#result").html(resultHandler.getHtmlContent());
+                }
                 hideProgress();
-
-                $("#result").html(_html);
             })
             .catch(reject);
     });
@@ -179,10 +234,12 @@ $(document).on("click", "#saveCustomer", function () {
     var language = 2;
     var customerDescription = "Customer updated from new JS SDK methods";
 
-
     new Promise(function (resolve, reject) {
         serverCaller.saveCustomer(customerId, customerName, externalId, language, customerDescription, sessionToken)
             .then(function (result) {
+                if (resultHandler.Handle(result, null, "Success")) {
+                    $("#result").html(resultHandler.getHtmlContent());
+                }
                 hideProgress();
             })
             .catch(reject);
@@ -195,10 +252,12 @@ $(document).on("click", "#deleteCustomer", function () {
 
     var customerId = "3004c5df-9f6d-4ae6-b5ee-c30ef8b845ee";
 
-
     new Promise(function (resolve, reject) {
         serverCaller.deleteCustomer(customerId, sessionToken)
             .then(function (result) {
+                if (resultHandler.Handle(result, null, "Deleted Success")) {
+                    $("#result").html(resultHandler.getHtmlContent());
+                }
                 hideProgress();
             })
             .catch(reject);
@@ -213,13 +272,13 @@ $(document).on("click", "#directAccountPaymentMethod", function () {
     var isCustomerAutomaticPaymentMethod = true;
     var account = serverCaller.createBankAccountObject("Jeff Testing", "Personal bank account", "003", "12345", "9876543");
 
-
     new Promise(function (resolve, reject) {
         serverCaller.createDirectAccountPaymentMethod(customerId, isCustomerAutomaticPaymentMethod, account, sessionToken)
             .then(function (result) {
-                var _html = "<h4>PaymentMethodId : </h4> " + result.PaymentMethodId;
+                if (resultHandler.Handle(result, null, "Created")) {
+                    $("#result").html(resultHandler.getHtmlContent());
+                }
                 hideProgress();
-                $("#result").html(_html);
             })
             .catch(reject);
     });
@@ -233,13 +292,14 @@ $(document).on("click", "#creditCardPaiementMethode", function () {
     var isCustomerAutomaticPaymentMethod = true;
     var CreditCard = serverCaller.createCreditCardObject("4242424242424242", "123", "12", "24", "Test Card", "Johny Cardholder", "1 Testing road", "Testcity", "10", "1", "H1H1H1");
 
-
     new Promise(function (resolve, reject) {
         serverCaller.createCreditCardPaymentMethod(customerId, isCustomerAutomaticPaymentMethod, CreditCard, sessionToken)
             .then(function (result) {
-                var _html = "<h4>PaymentMethodId : </h4> " + result.PaymentMethodId;
+                if (resultHandler.Handle(result, null, "Created")) {
+                    $("#result").html(resultHandler.getHtmlContent());
+                }
                 hideProgress();
-                $("#result").html(_html);
+
             })
             .catch(reject);
     });
@@ -256,9 +316,10 @@ $(document).on("click", "#interacPaiementMethode", function () {
     new Promise(function (resolve, reject) {
         serverCaller.createInteracPaymentMethod(customerId, isCustomerAutomaticPaymentMethod, InteracInformation, sessionToken)
             .then(function (result) {
-                var _html = "<h4>PaymentMethodId : </h4> " + result.PaymentMethodId;
+                if (resultHandler.Handle(result, null, "<h4>PaymentMethodId : </h4> " + result.PaymentMethodId)) {
+                    $("#result").html(resultHandler.getHtmlContent());
+                }
                 hideProgress();
-                $("#result").html(_html);
             })
             .catch(reject);
     });
@@ -270,26 +331,13 @@ $(document).on("click", "#getPayementMethod", function () {
 
     var paymentMethodId = " b1d3ca2c-8c04-4c03-8de4-7a5f464198e2";
 
-
     new Promise(function (resolve, reject) {
         serverCaller.getPaymentMethod(paymentMethodId, sessionToken)
             .then(function (result) {
-                var _html = "<table class='table'>";
-                _html += "<thead><tr><th>Payment Method Id</th><th>Payment Method Description</th><th>Payment Method Type</th><th>Payment Method Owner</th></tr></thead>";
-                _html += "<tbody>";
-                _html += "<tr>";
-                _html += "<td>" + JSON.stringify(result.PaymentMethod.PaymentMethodId) + "</td>";
-                _html += "<td>" + JSON.stringify(result.PaymentMethod.PaymentMethodDescription) + "</td>";
-                _html += "<td>" + JSON.stringify(result.PaymentMethod.PaymentMethodType) + "</td>";
-                _html += "<td>" + JSON.stringify(result.PaymentMethod.Owner) + "</td>";
-                _html += "</tr>";
-
-                _html += "</tbody>";
-                _html += "</table>";
-
+                if (resultHandler.Handle(result, result.PaymentMethod, "")) {
+                    $("#result").html(resultHandler.getHtmlContent());
+                }
                 hideProgress();
-
-                $("#result").html(_html);
             })
             .catch(reject);
     });
@@ -301,29 +349,13 @@ $(document).on("click", "#listPayementMethods", function () {
 
     var customerId = "3004c5df-9f6d-4ae6-b5ee-c30ef8b845ee";
 
-
     new Promise(function (resolve, reject) {
         serverCaller.listPaymentMethods(customerId, sessionToken)
             .then(function (result) {
-                var _html = "<table class='table'>";
-                _html += "<thead><tr><th>Payment Method Id</th><th>Payment Method Description</th><th>Payment Method Type</th><th>Payment Method Owner</th><th>Is Customer Automatic Payment Method</th></tr></thead>";
-                _html += "<tbody>";
-                for (var i = 0; i < result.PaymentMethods.length; i++) {
-                    _html += "<tr>";
-                    _html += "<td>" + JSON.stringify(result.PaymentMethods[i].PaymentMethodId) + "</td>";
-                    _html += "<td>" + JSON.stringify(result.PaymentMethods[i].PaymentMethodDescription) + "</td>";
-                    _html += "<td>" + JSON.stringify(result.PaymentMethods[i].PaymentMethodType) + "</td>";
-                    _html += "<td>" + JSON.stringify(result.PaymentMethods[i].Owner) + "</td>";
-                    _html += "<td>" + JSON.stringify(result.PaymentMethods[i].IsCustomerAutomaticPaymentMethod) + "</td>";
-                    _html += "</tr>";
+                if (resultHandler.Handle(result, result.PaymentMethods, "")) {
+                    $("#result").html(resultHandler.getHtmlContent());
                 }
-
-                _html += "</tbody>";
-                _html += "</table>";
-
                 hideProgress();
-
-                $("#result").html(_html);
             })
             .catch(reject);
     });
@@ -332,18 +364,17 @@ $(document).on("click", "#listPayementMethods", function () {
 $(document).on("click", "#setDefaultPaymentMethod", function () {
     $("#result").html("");
     showProgress();
-
     var customerId = "3004c5df-9f6d-4ae6-b5ee-c30ef8b845ee";
     var payementMethodId = "b1d3ca2c-8c04-4c03-8de4-7a5f464198e2";
-    // the Init Call Was Here
 
     new Promise(function (resolve, reject) {
         serverCaller.setDefaultPaymentMethod(payementMethodId, customerId, sessionToken)
             .then(function (result) {
-                var _html = "";
+                if (resultHandler.Handle(result, null, "Set")) {
+                    $("#result").html(resultHandler.getHtmlContent());
+                }
                 hideProgress();
 
-                $("#result").html(_html);
             })
             .catch(reject);
     });
@@ -354,15 +385,14 @@ $(document).on("click", "#deletePaymentMethod", function () {
     showProgress();
 
     var payementMethodId = "0ce18bb1-5fef-40f1-892f-828a1fc21b97";
-    // the Init Call Was Here
 
     new Promise(function (resolve, reject) {
         serverCaller.deletePaymentMethod(payementMethodId, sessionToken)
             .then(function (result) {
-                var _html = "";
+                if (resultHandler.Handle(result, null, "deleted")) {
+                    $("#result").html(resultHandler.getHtmlContent());
+                }
                 hideProgress();
-
-                $("#result").html(_html);
             })
             .catch(reject);
     });
@@ -371,18 +401,14 @@ $(document).on("click", "#deletePaymentMethod", function () {
 $(document).on("click", "#listWhiteLabeling", function () {
     $("#result").html("");
     showProgress();
-
-    var payementMethodId = "0ce18bb1-5fef-40f1-892f-828a1fc21b97";
-    // the Init Call Was Here
-
     new Promise(function (resolve, reject) {
-        serverCaller.getListWhiteLabelingData(clientId, 3, sessionToken)
+        serverCaller.getListWhiteLabelingData(sessionToken)
             .then(function (result) {
-                var _html = "";
-                
+                if (resultHandler.Handle(result, result.whiteLabelings)) {
+                    $("#result").html(resultHandler.getHtmlContent());
+                }
                 hideProgress();
 
-                $("#result").html(_html);
             })
             .catch(reject);
     });
@@ -401,19 +427,18 @@ $(document).on("click", "#createBill", function () {
         Language: 1,
         RelatedCustomerId: "d215b447-7746-4865-b9fa-78e72a2f5678"
     };
-
     var breakIfMerchantNeverBeenAuthorized = true;
 
     $("#result").html("");
     showProgress();
-    // the Init Call Was Here
 
     new Promise(function (resolve, reject) {
         serverCaller.createBill(breakIfMerchantNeverBeenAuthorized, billObject, sessionToken)
             .then(function (result) {
-                var _html = "<h4>BillId : </h4> " + result.BillId;
+                if (resultHandler.Handle(result, null, "<h4>BillId : </h4> " + result.BillId)) {
+                    $("#result").html(resultHandler.getHtmlContent());
+                }
                 hideProgress();
-                $("#result").html(_html);
             })
             .catch(reject);
     });
@@ -426,31 +451,16 @@ $(document).on("click", "#listBills", function () {
     var merchantId = "ea34f2c6-36b2-4513-973e-a2c91e7985d3";
     var fromDateTime = "2021-02-16T13:45:00.000Z";
     var toDateTime = "2021-06-11T13:45:00.000Z";
-    // the Init Call Was Here
 
     new Promise(function (resolve, reject) {
         serverCaller.listBills(merchantId, serviceId, fromDateTime, toDateTime, sessionToken)
             .then(function (result) {
-                
-                var _html = "<table class='table'>";
-                _html += "<thead><tr><th>Bill Id</th><th>Created Date</th><th>Merchant Id</th><th>Bill Title</th><th>Bill Description</th></tr></thead>";
-                _html += "<tbody>";
-                for (var i = 0; i < result.Bills.length; i++) {
-                    _html += "<tr>";
-                    _html += "<td>" + JSON.stringify(result.Bills[i].BillId) + "</td>";
-                    _html += "<td>" + JSON.stringify(result.Bills[i].CreatedDate) + "</td>";
-                    _html += "<td>" + JSON.stringify(result.Bills[i].MerchantId) + "</td>";
-                    _html += "<td>" + JSON.stringify(result.Bills[i].BillTitle) + "</td>";
-                    _html += "<td>" + JSON.stringify(result.Bills[i].BillDescription) + "</td>";
-                    _html += "</tr>";
+                if (resultHandler.Handle(result, result.Bills)) {
+                    $("#result").html(resultHandler.getHtmlContent());
                 }
-
-                _html += "</tbody>";
-                _html += "</table>";
 
                 hideProgress();
 
-                $("#result").html(_html);
             })
             .catch(reject);
     });
@@ -461,30 +471,16 @@ $(document).on("click", "#getBill", function () {
     showProgress();
 
     var billId = "b13ab72f-b932-4345-9d15-aae7d3f7d134";
-    // the Init Call Was Here
+
 
     new Promise(function (resolve, reject) {
         serverCaller.getBill(billId, sessionToken)
             .then(function (result) {
-                var _html = "<table class='table'>";
-                _html += "<thead><tr><th>Bill Id</th><th>Created Date</th><th>Merchant Id</th><th>Bill Title</th><th>Bill Description</th></tr></thead>";
-                _html += "<tbody>";
-                if (result.Bill != null) {
-                    _html += "<tr>";
-                    _html += "<td>" + JSON.stringify(result.Bill.BillId) + "</td>";
-                    _html += "<td>" + JSON.stringify(result.Bill.CreatedDate) + "</td>";
-                    _html += "<td>" + JSON.stringify(result.Bill.MerchantId) + "</td>";
-                    _html += "<td>" + JSON.stringify(result.Bill.BillTitle) + "</td>";
-                    _html += "<td>" + JSON.stringify(result.Bill.BillDescription) + "</td>";
-                    _html += "</tr>";
+                if (resultHandler.Handle(result, result.Bill)) {
+                    $("#result").html(resultHandler.getHtmlContent());
                 }
-
-                _html += "</tbody>";
-                _html += "</table>";
-
                 hideProgress();
 
-                $("#result").html(_html);
             })
             .catch(reject);
     });
@@ -495,15 +491,15 @@ $(document).on("click", "#deleteBill", function () {
     showProgress();
 
     var billId = "c4bfc007-abdc-4c0c-8b4d-5eafbd1f7c44";
-    // the Init Call Was Here
 
     new Promise(function (resolve, reject) {
         serverCaller.deleteBill(billId, sessionToken)
             .then(function (result) {
-
+                if (resultHandler.Handle(result, null, "billID : " + billId + " is Deleted")) {
+                    $("#result").html(resultHandler.getHtmlContent());
+                }
                 hideProgress();
 
-                $("#result").html("billID : " + billId + " is Deleted");
             })
             .catch(reject);
     });
@@ -521,19 +517,14 @@ $(document).on("click", "#createPayement", function () {
         DueDate: "2021-05-09T16:10:19.000Z",
         PaymentAmount: 1.22
     };
-    // the Init Call Was Here
 
     new Promise(function (resolve, reject) {
         serverCaller.createPayment(billId, setPaymentCustomerFromBill, "customerEmail@gmail.com", paymentInfo, sessionToken)
             .then(function (result) {
                 hideProgress();
-
-                if (!result.HasError) {
-                    $("#result").html("PaymentId : " + result.PaymentId);
-                } else {
-                    $("#result").html(result.Messages);
+                if (resultHandler.Handle(result, null, "billID : " + result.PaymentId + " is Deleted")) {
+                    $("#result").html(resultHandler.getHtmlContent());
                 }
-
             })
             .catch(reject);
     });
@@ -556,17 +547,13 @@ $(document).on("click", "#createDirectDeposit", function () {
     var language = 1;
     var referenceNumber = "C12343-324";
     var amount = 200;
-    // the Init Call Was Here
 
     new Promise(function (resolve, reject) {
         serverCaller.createDirectDeposit(originMerchantId, destinationAccount, depositDueDate, currency, language, referenceNumber, amount, sessionToken)
             .then(function (result) {
                 hideProgress();
-
-                if (!result.HasError) {
-                    $("#result").html("Direct Deposit Created");
-                } else {
-                    $("#result").html(result.Messages);
+                if (resultHandler.Handle(result, null, "Direct Deposit Created")) {
+                    $("#result").html(resultHandler.getHtmlContent());
                 }
             })
             .catch(reject);
@@ -595,17 +582,13 @@ $(document).on("click", "#createDirectInteracTransaction", function () {
     var language = 1;
     var referenceNumber = "C12343-324";
     var amount = 200;
-    // the Init Call Was Here
 
     new Promise(function (resolve, reject) {
         serverCaller.createDirectInteracTransaction(originMerchantId, destinationAccount, depositDueDate, currency, language, referenceNumber, amount, sessionToken)
             .then(function (result) {
                 hideProgress();
-
-                if (!result.HasError) {
-                    $("#result").html("Direct Interac Transaction Created");
-                } else {
-                    $("#result").html(result.Messages);
+                if (resultHandler.Handle(result, null, "Direct Interac Transaction Created")) {
+                    $("#result").html(resultHandler.getHtmlContent());
                 }
             })
             .catch(reject);
@@ -615,20 +598,15 @@ $(document).on("click", "#createDirectInteracTransaction", function () {
 $(document).on("click", "#createTransactionFromRaw", function () {
     $("#result").html("");
     showProgress();
-
     var merchantId = "ea34f2c6-36b2-4513-973e-a2c91e7985d3";
     var rawAcpFileContent = "[THE ACP FILE CONTENT TEXT]";
-    // the Init Call Was Here
 
     new Promise(function (resolve, reject) {
         serverCaller.createTransactionFromRaw(merchantId, rawAcpFileContent, sessionToken)
             .then(function (result) {
                 hideProgress();
-
-                if (!result.HasError) {
-                    $("#result").html("Transaction From Raw Created");
-                } else {
-                    $("#result").html(Messages);
+                if (resultHandler.Handle(result, null, "Transaction From Raw Created")) {
+                    $("#result").html(resultHandler.getHtmlContent());
                 }
             })
             .catch(reject);
@@ -648,18 +626,15 @@ $(document).on("click", "#createFreeOperation", function () {
     var transactionDueDate = "2021-02-16T16:10:19.000Z";
     var groupId = "HT123123";
     var transferFrequency = 0;
-    // the Init Call Was Here
 
     new Promise(function (resolve, reject) {
         serverCaller.createFreeOperation(merchantId, paymentMethodId, transferType, referenceNumber, amount, language, transactionDueDate, groupId, transferFrequency, sessionToken)
             .then(function (result) {
                 hideProgress();
-
-                if (!result.HasError) {
-                    $("#result").html("Free Operation Created");
-                } else {
-                    $("#result").html(result.Messages);
+                if (resultHandler.Handle(result, null, "Free Operation Created")) {
+                    $("#result").html(resultHandler.getHtmlContent());
                 }
+
             })
             .catch(reject);
     });
@@ -668,19 +643,13 @@ $(document).on("click", "#createFreeOperation", function () {
 $(document).on("click", "#deletePayment", function () {
     $("#result").html("");
     showProgress();
-
     var payementId = "ea34f2c6-36b2-4513-973e-a2c91e7985d3";
-    // the Init Call Was Here
-
     new Promise(function (resolve, reject) {
         serverCaller.deletePayment(payementId, sessionToken)
             .then(function (result) {
                 hideProgress();
-
-                if (!result.HasError) {
-                    $("#result").html("Payement " + payementId + " deleted");
-                } else {
-                    $("#result").html(result.Messages);
+                if (resultHandler.Handle(result, null, "Payement " + payementId + " deleted")) {
+                    $("#result").html(resultHandler.getHtmlContent());
                 }
             })
             .catch(reject);
@@ -692,17 +661,14 @@ $(document).on("click", "#revertTransfer", function () {
     showProgress();
 
     var transferId = "c9a521d5-60a1-4398-8f6c-7462797d584c";
-    // the Init Call Was Here
+
 
     new Promise(function (resolve, reject) {
         serverCaller.revertTransfer(transferId, sessionToken)
             .then(function (result) {
                 hideProgress();
-
-                if (!result.HasError) {
-                    $("#result").html("Transfer " + transferId + " reverted");
-                } else {
-                    $("#result").html(result.Messages);
+                if (resultHandler.Handle(result, null, "Transfer " + transferId + " reverted")) {
+                    $("#result").html(resultHandler.getHtmlContent());
                 }
             })
             .catch(reject);
@@ -712,39 +678,13 @@ $(document).on("click", "#revertTransfer", function () {
 $(document).on("click", "#getRecuringTransfers", function () {
     $("#result").html("");
     showProgress();
-    // the Init Call Was Here
-
     new Promise(function (resolve, reject) {
         serverCaller.getRecuringTransfers(serviceId, sessionToken)
             .then(function (result) {
                 hideProgress();
-
-                if (!result.HasError) {
-                    var _html = "<table class='table'>";
-                    _html += "<thead><tr><th>Recuring Transfer Id</th><th>Recuring Mode</th><th>Created Date</th><th>RelatedMerchantId</th><th>Related Customer Id</th><th>Amount</th></tr></thead>";
-                    _html += "<tbody>";
-
-                    if (!result.HasError) {
-                        for (i = 0; i < result.RecuringTransfers.length; i++) {
-                            _html += "<tr>";
-                            _html += "<td>" + JSON.stringify(result.RecuringTransfers[i].RecuringTransferId) + "</td>";
-                            _html += "<td>" + JSON.stringify(result.RecuringTransfers[i].RecuringMode) + "</td>";
-                            _html += "<td>" + JSON.stringify(result.RecuringTransfers[i].CreatedDate) + "</td>";
-                            _html += "<td>" + JSON.stringify(result.RecuringTransfers[i].RelatedMerchantId) + "</td>";
-                            _html += "<td>" + JSON.stringify(result.RecuringTransfers[i].RelatedCustomerId) + "</td>";
-                            _html += "<td>" + JSON.stringify(result.RecuringTransfers[i].Amount) + "</td>";
-                            _html += "</tr>";
-                        }
-                    }
-
-                    _html += "</tbody>";
-                    _html += "</table>";
-
-                    $("#result").html(_html);
-                } else {
-                    $("#result").html(result.Messages);
+                if (resultHandler.Handle(result, result.RecuringTransfers, "Transfer " + transferId + " reverted")) {
+                    $("#result").html(resultHandler.getHtmlContent());
                 }
-
                 hideProgress();
             })
             .catch(reject);
@@ -755,18 +695,13 @@ $(document).on("click", "#deleteRecuringTransfer", function () {
     $("#result").html("");
     showProgress();
 
-    var recuringTransferId = "89d720f2-78ae-4816-8fda-0099aa867c38";
-    // the Init Call Was Here
-
+    var recuringTransferId = "";
     new Promise(function (resolve, reject) {
         serverCaller.deleteRecuringTransfer(recuringTransferId, sessionToken)
             .then(function (result) {
                 hideProgress();
-
-                if (!result.HasError) {
-                    $("#result").html("RecuringTransfer " + payementId + " deleted");
-                } else {
-                    $("#result").html(result.Messages);
+                if (resultHandler.Handle(result, null, "RecuringTransfer " + payementId + " deleted")) {
+                    $("#result").html(resultHandler.getHtmlContent());
                 }
             })
             .catch(reject);
@@ -776,7 +711,6 @@ $(document).on("click", "#deleteRecuringTransfer", function () {
 $(document).on("click", "#listExecutedOperations", function () {
     $("#result").html("");
     showProgress();
-
     var fromDate = "";
     var toDate = "";
     var transferType = 1;
@@ -784,34 +718,15 @@ $(document).on("click", "#listExecutedOperations", function () {
     var onlyWithErrors = false;
     var merchantId = "";
     var dateType = "";
-    // the Init Call Was Here
 
     new Promise(function (resolve, reject) {
         serverCaller.listExecutedOperations(fromDate, toDate, transferType, transferGroupId,
-            onlyWithErrors, merchantId, dateType, sessionToken)
+                onlyWithErrors, merchantId, dateType, sessionToken)
             .then(function (result) {
-                
-
-                var _html = "<table class='table'>";
-                _html += "<thead><tr><th>Recuring Transfer Id</th><th>Recuring Mode</th><th>Created Date</th><th>Related Merchant Id</th><th>Related Customer Id</th><th>Amount</th></tr></thead>";
-                _html += "<tbody>";
-                for (var i = 0; i < result.OperationList.length; i++) {
-                    _html += "<tr>";
-                    _html += "<td>" + JSON.stringify(result.OperationList[i].RecuringTransferId) + "</td>";
-                    _html += "<td>" + JSON.stringify(result.OperationList[i].RecuringMode) + "</td>";
-                    _html += "<td>" + JSON.stringify(result.OperationList[i].CreatedDate) + "</td>";
-                    _html += "<td>" + JSON.stringify(result.OperationList[i].RelatedMerchantId) + "</td>";
-                    _html += "<td>" + JSON.stringify(result.OperationList[i].RelatedCustomerId) + "</td>";
-                    _html += "<td>" + JSON.stringify(result.OperationList[i].Amount) + "</td>";
-                    _html += "</tr>";
+                if (resultHandler.Handle(result, result.OperationList)) {
+                    $("#result").html(resultHandler.getHtmlContent());
                 }
-
-                _html += "</tbody>";
-                _html += "</table>";
-
                 hideProgress();
-
-                $("#result").html(_html);
             })
             .catch(reject);
     });
@@ -820,17 +735,13 @@ $(document).on("click", "#listExecutedOperations", function () {
 $(document).on("click", "#getWhiteLabeling", function () {
     $("#result").html("");
     showProgress();
-
-    // the Init Call Was Here
-
     new Promise(function (resolve, reject) {
         serverCaller.getWhiteLabelingData(clientId, 3, sessionToken)
             .then(function (result) {
-                
-
+                if (resultHandler.Handle(result, result.WhiteLabeling)) {
+                    $("#result").html(resultHandler.getHtmlContent());
+                }
                 hideProgress();
-
-                $("#result").html(_html);
             })
             .catch(reject);
     });
@@ -840,12 +751,9 @@ $(document).on("click", "#setWhiteLabeling", function () {
     $("#result").html("");
     showProgress();
 
-
-    // the Init Call Was Here
-    var whiteLabelingData = [
-        {
+    var whiteLabelingData = [{
             CssProperty: "background-color",
-            CssValue: "black"
+            CssValue: "magenta"
         },
         {
             CssProperty: "button-color",
@@ -855,11 +763,10 @@ $(document).on("click", "#setWhiteLabeling", function () {
     new Promise(function (resolve, reject) {
         serverCaller.setwhiteLabeling(clientId, 3, whiteLabelingData, sessionToken)
             .then(function (result) {
-                
-
+                if (resultHandler.Handle(result, null, "Added successfully")) {
+                    $("#result").html(resultHandler.getHtmlContent());
+                }
                 hideProgress();
-
-                // $("#result").html(_html);
             })
             .catch(reject);
     });
@@ -871,11 +778,10 @@ $(document).on("click", "#listServices", function () {
     new Promise(function (resolve, reject) {
         serverCaller.listServices(merchantId, sessionToken)
             .then(function (result) {
-                
-
+                if (resultHandler.Handle(result, result.Services, "Added successfully")) {
+                    $("#result").html(resultHandler.getHtmlContent());
+                }
                 hideProgress();
-
-                // $("#result").html(_html);
             })
             .catch(reject);
     });
@@ -884,24 +790,18 @@ $(document).on("click", "#listServices", function () {
 $(document).on("click", "#updateWhiteLabeling", function () {
     $("#result").html("");
     showProgress();
-
-
-    // the Init Call Was Here
-    var whiteLabelingData = [
-        {
-            id: "f04b6335-00d4-483e-abd8-5fc5ce3433d6",
-            CssPropery: "background-color",
-            CssValue: "yellow"
-        }
-    ];
+    var whiteLabelingData = [{
+        WhiteLabelingDataId: "9bc7a671-704d-441f-a906-3b2a44dbc3e5",
+        CssProperty: "background-color",
+        CssValue: "yellow"
+    }];
     new Promise(function (resolve, reject) {
         serverCaller.updateWhiteLabelingData(clientId, 3, whiteLabelingData, sessionToken)
             .then(function (result) {
-                
-
+                if (resultHandler.Handle(result, null, "Updated successfully")) {
+                    $("#result").html(resultHandler.getHtmlContent());
+                }
                 hideProgress();
-
-                // $("#result").html(_html);
             })
             .catch(reject);
     });
@@ -913,7 +813,9 @@ $(document).on("click", "#deleteWhiteLabeling", function () {
     new Promise(function (resolve, reject) {
         serverCaller.deleteWhiteLabeling(clientId, 3, sessionToken)
             .then(function (result) {
-                
+                if (resultHandler.Handle(result, null, "Deleted successfully")) {
+                    $("#result").html(resultHandler.getHtmlContent());
+                }
                 hideProgress();
             })
             .catch(reject);
@@ -925,27 +827,13 @@ $(document).on("click", "#deleteWhiteLabeling", function () {
 $(document).on("click", "#createsubclient", function () {
     $("#result").html("");
     showProgress();
-
-    // the Init Call Was Here
-    var whiteLabelingData = [
-        {
-            CssPropery: "background-color",
-            CssValue: "black"
-        },
-        {
-            CssPropery: "button-color",
-            CssValue: "red"
-        },
-    ];
-
     new Promise(function (resolve, reject) {
         serverCaller.createSubClient("new subClient", 2, sessionToken)
             .then(function (result) {
-                
-
+                if (resultHandler.Handle(result, null, "added successfully")) {
+                    $("#result").html(resultHandler.getHtmlContent());
+                }
                 hideProgress();
-
-                // $("#result").html(_html);
             })
             .catch(reject);
     });
@@ -958,11 +846,11 @@ $(document).on("click", "#getService", function () {
     new Promise(function (resolve, reject) {
         serverCaller.getService(serviceId, sessionToken)
             .then(function (result) {
-                
-
+                console.log(result)
+                if (resultHandler.Handle(result, result.Service)) {
+                    $("#result").html(resultHandler.getHtmlContent());
+                }
                 hideProgress();
-
-                // $("#result").html(_html);
             })
             .catch(reject);
     });

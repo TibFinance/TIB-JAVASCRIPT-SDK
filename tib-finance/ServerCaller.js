@@ -16,7 +16,6 @@ class ServerCaller {
     }
 
      createCustomer(customerName, externalId, language = 1, customerDescription, serviceId, sessionToken) {
-        CryptoCaller.createSession();
 
         var methodName = "/Data/CreateCustomer";
         var data = {
