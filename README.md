@@ -1,7 +1,9 @@
 
-# Tib PHP Sdk 
+# Tib Javasscript Sdk 
 
-This is a technical document  on how to use the Tib PHP Sdk .
+This is a technical document  on how to use the Tib Javascript Sdk .
+
+you can get the nodeJs version [Here]("https://github.com/TibFinance/NodeJS_Tib_SDK")
 
 ## Content Table  
 
@@ -29,10 +31,24 @@ To understand how to use the API, you must understand the Different objects of t
 For details See the pdf [Documentation](https://tibfinance.github.io/). Or get the Pdf Verion [Here](https://github.com/TibFinance/TibPhpSdk/blob/main/Documentation/Tib%20Api%20Documentation.pdf).
 
 ## Environments
-
 Calls to the service are done via a WEB service. There are two URLs for the service:
 * Production: https://portal.tib.finance    
 * Development [(Sandbox)](./Documentation/Sandbox.md) : http://sandboxportal.tib.finance
+
+
+### Testing in Local envirement
+When testing this SDk and since it's designed to run on browsers, you might run into the Cors Problem 
+```
+    origin 'http://127.0.0.1:5500' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource
+```
+if you're using chrome and faced this Error please follow those steps .
+
+- Create a shortcut of google chrome
+- Create an empty folder
+- Go to the shortcut parameters and set the target to :
+```
+"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" --disable-web-security --user-data-dir="[your Folder path]""C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" --disable-web-security --user-data-dir="[your Folder path]"
+ ```
 
 ## Set Up 
 ` Before you using the SDK you need to set the api url up and get a session id. `
@@ -40,6 +56,7 @@ Calls to the service are done via a WEB service. There are two URLs for the serv
 Initiat the Server Caller Class  
 
 ``` var serverCaller = new ServerCaller(); ```
+
 
 Then set the api Url 
 
