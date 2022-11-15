@@ -63,6 +63,7 @@ class CryptoCaller{
 
       returnData.cryptedPublicKeyAndClientSymetricBase64 = System.Convert.ToBase64String(encryptedLocalPublicKeyAndClientSymetricKeyXml);
 
+      console.log(returnData);
       return returnData;
     }
 

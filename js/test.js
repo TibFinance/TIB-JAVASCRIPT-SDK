@@ -3,9 +3,9 @@
  */
 
 var serviceId = "";
-var clientId = "";
-var userName = "";
-var password = ""
+var clientId = "9bfd1de3-2bb4-4a64-8b71-453699dff214";
+var userName = "User1991";
+var password = "user1991"
 var merchantId = "";
 var sessionToken = "";
 
@@ -854,6 +854,62 @@ $(document).on("click", "#getService", function () {
             })
             .catch(reject);
     });
+})
+
+$(document).on("click", "#getclientSettings", function(){
+    $("#rresult").html(''); 
+    showProgress();
+    new Promise(function (resolve, reject){
+        serverCaller.getClientSettings(clientId, sessionToken)
+        .then( function (result) {
+            console.log(result)
+            if(resultHandler.Handle(result, result.ClientSettings )){
+                $("#result").html(resultHandler.getHtmlContent());
+                hideProgress();
+            }
+        })
+        .catch(reject)
+    })
+})
+
+$(document).on("click", "#setclientserviceSettings", function(){
+    $("#rresult").html(''); 
+    showProgress();
+    var ServiceFeeSettings = {
+        ConvenientFeeDebitAbsoluteFee: 0,
+        ConvenientFeeCreditAbsoluteFee: 0,
+    };
+    new Promise(function (resolve, reject){
+        serverCaller.setClientDefaultServiceFeeSettings(clientId, ServiceFeeSettings, sessionToken)
+        .then( function (result) {
+            console.log(result)
+            if(resultHandler.Handle(result, null, "Client Service Settings Set." )){
+                $("#result").html(resultHandler.getHtmlContent());
+                hideProgress();
+            }
+        })
+        .catch(reject)
+    })
+})
+
+$(document).on("click", "#setclientSettings", function(){
+    $("#rresult").html(''); 
+    showProgress();
+    var clientSettings = {
+        CollectionLimitDaily: 93849,
+        DepositLimitDaily: 2994949
+    };
+    new Promise(function (resolve, reject){
+        serverCaller.setClientSettings(clientId,clientSettings, sessionToken)
+        .then( function (result) {
+            console.log(result)
+            if(resultHandler.Handle(result, null, "Settings Created" )){
+                $("#result").html(resultHandler.getHtmlContent());
+                hideProgress();
+            }
+        })
+        .catch(reject)
+    })
 })
 
 function showProgress() {
