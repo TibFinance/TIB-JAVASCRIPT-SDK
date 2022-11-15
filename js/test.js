@@ -3,9 +3,9 @@
  */
 
 var serviceId = "";
-var clientId = "9bfd1de3-2bb4-4a64-8b71-453699dff214";
-var userName = "User1991";
-var password = "user1991"
+var clientId = "";
+var userName = "";
+var password = ""
 var merchantId = "";
 var sessionToken = "";
 
