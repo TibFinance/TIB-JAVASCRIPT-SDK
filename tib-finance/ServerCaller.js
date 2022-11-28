@@ -593,11 +593,22 @@ class ServerCaller {
     }
 
     /// Sub Client's Methods . 
-     setClientDefaultServiceFeeSettings(clienntId, serviceFeeSettinngs, sessionToken) {
+    setClientDefaultServiceFeeSettings(clienntId, serviceFeeSettinngs, sessionToken) {
         var methodName = "/Data/SetClientDefaultServiceFeeSettings";
         var data = {
             ClientId: clientId,
             ServicefeeSettings: serviceFeeSettinngs,
+            SessionToken: sessionToken
+        }
+
+        return CryptoCaller.performCall(methodName, data);
+    }  
+    
+    setClientDefaultServiceSettings(clienntId, serviceSettinngs, sessionToken) {
+        var methodName = "/Data/SetClientDefaultServiceSettings";
+        var data = {
+            ClientId: clientId,
+            ServicefeeSettings: serviceSettinngs,
             SessionToken: sessionToken
         }
 
